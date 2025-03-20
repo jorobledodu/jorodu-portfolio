@@ -5,6 +5,7 @@
  */
 
 import svgIcons from './svg-icons.js';
+import { SITE_VERSION } from './version.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     // DOM element references for better performance and maintainability
@@ -33,7 +34,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         gameFrame: document.getElementById('game-frame'),
         herramientasContainer: document.querySelector('.herramientas .etiquetas-tecnologias'), // Contenedor de herramientas
         socialIcons: document.querySelectorAll('.svg-icon'), // Iconos de redes sociales
-        profileImgContainer: document.querySelector('.profile-img-container') // Added profile image container reference
+        profileImgContainer: document.querySelector('.profile-img-container'), // Added profile image container reference
+        versionDisplay: document.getElementById('version-display'),
+        siteVersionElement: document.getElementById('site-version')
     };
 
     // Estado de la aplicación
@@ -718,6 +721,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Setup profile image interaction for mobile devices
         setupProfileImageInteraction();
+        
+        // Mostrar la versión del sitio
+        if (DOM.siteVersionElement) {
+            DOM.siteVersionElement.textContent = SITE_VERSION;
+        }
 
         // Configurar event listeners para botones interactivos
         setupEventListeners();

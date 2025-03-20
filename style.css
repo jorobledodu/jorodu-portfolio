@@ -106,8 +106,9 @@ body {
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
-    min-height: 90vh;
-    padding-bottom: 2rem;
+    min-height: calc(100vh - 7rem);
+    position: relative;
+    padding-bottom: 3rem;
 }
 
 /* Sección izquierda */
@@ -352,6 +353,7 @@ body {
 /* Sección derecha */
 .main-content {
     padding: 0 2rem;
+    flex: 1;
 }
 
 .grid-proyectos {
@@ -1070,6 +1072,54 @@ body.dark-theme {
     background-color: #00b6ff;
     transform: translateY(-5px);
     box-shadow: 0 6px 18px rgba(255, 159, 28, 0.4);
+}
+
+/* Version display styling */
+.version-display {
+    position: relative;
+    font-size: 0.8rem;
+    color: var(--current-text);
+    opacity: 0.7;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 3px 8px;
+    border-radius: 4px;
+    z-index: 100;
+    transition: opacity 0.3s ease;
+    margin: 2rem auto 0;
+    width: max-content;
+    text-align: center;
+    display: block;
+}
+
+/* Responsive version display for mobile devices and when notebook takes full page */
+@media (max-width: 768px) {
+    .version-display {
+        position: static;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        margin: 1rem auto 0;
+        width: max-content;
+        text-align: center;
+        display: block;
+    }
+}
+
+/* When notebook takes full page, position version at bottom */
+@media (min-height: 800px) {
+    .notebook-page {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .version-display {
+        margin-top: auto;
+        margin-bottom: 1rem;
+    }
+}
+
+.version-display:hover {
+    opacity: 1;
 }
 
 .back-to-top i {
