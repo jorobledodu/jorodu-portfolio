@@ -5,7 +5,6 @@
  */
 
 import svgIcons from './svg-icons.js';
-import { SITE_VERSION } from './version.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     // DOM element references for better performance and maintainability
@@ -34,9 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         gameFrame: document.getElementById('game-frame'),
         herramientasContainer: document.querySelector('.herramientas .etiquetas-tecnologias'), // Contenedor de herramientas
         socialIcons: document.querySelectorAll('.svg-icon'), // Iconos de redes sociales
-        profileImgContainer: document.querySelector('.profile-img-container'), // Added profile image container reference
-        versionDisplay: document.getElementById('version-display'),
-        siteVersionElement: document.getElementById('site-version')
+        profileImgContainer: document.querySelector('.profile-img-container') // Added profile image container reference
     };
 
     // Estado de la aplicación
@@ -62,8 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Cargar datos del portfolio
     async function loadPortfolioData() {
         try {
-            // Add version parameter to prevent caching
-            const response = await fetch(`portfolioData.json?v=${new Date().getTime()}`);
+            const response = await fetch('portfolioData.json');
             const data = await response.json();
             return data; // Return the data directly to preserve original order
         } catch (error) {
