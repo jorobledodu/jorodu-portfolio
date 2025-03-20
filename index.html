@@ -7,11 +7,32 @@
     <meta name="description"
         content="Jorge Robledo - Desarrollador de videojuegos y diseñador especializado en Unity, C#, y experiencias interactivas" />
     <title>Jorge Robledo | Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css" id="main-stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Press+Start+2P&family=Rubik+Bubbles&display=swap" />
     <link rel="icon" href="Resources/Images/perfil-avatar.png" type="image/x-icon" />
+    
+    <!-- Version control script for cache busting -->
+    <script type="module">
+        import { SITE_VERSION, checkVersion } from './version.js';
+        
+        // Check version and handle cache clearing if needed
+        checkVersion();
+        
+        // Add version parameter to CSS and JS files
+        function addVersionToAssets() {
+            const stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+            stylesheets.forEach(stylesheet => {
+                if (stylesheet.href && stylesheet.href.includes(window.location.origin) && !stylesheet.href.includes('?v=')) {
+                    stylesheet.href = `${stylesheet.href}?v=${SITE_VERSION}`;
+                }
+            });
+        }
+        
+        // Apply versioning to assets
+        addVersionToAssets();
+    </script>
 </head>
 
 <body>

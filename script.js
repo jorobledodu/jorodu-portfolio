@@ -59,7 +59,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Cargar datos del portfolio
     async function loadPortfolioData() {
         try {
-            const response = await fetch('portfolioData.json');
+            // Add version parameter to prevent caching
+            const response = await fetch(`portfolioData.json?v=${new Date().getTime()}`);
             const data = await response.json();
             return data; // Return the data directly to preserve original order
         } catch (error) {
