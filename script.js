@@ -165,6 +165,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <i class="fas ${project.playable ? 'fa-gamepad' : 'fa-code'}">
                             </i> ${project.playable ? translations[state.currentLang]["playable"] : translations[state.currentLang]["not-playable"]}
                         </div>` : ''}
+                        ${project.academic ? `
+                        <div class="project-academic" title="${project.academic.institution} - ${project.academic.course} (${project.academic.year})">
+                            <i class="fas fa-graduation-cap"></i> Académico
+                        </div>` : ''}
                     </div>
                     
                     <ul class="etiquetas-tecnologias">
@@ -368,6 +372,40 @@ document.addEventListener('DOMContentLoaded', async () => {
         DOM.modalImage.src = project.thumbnail;
         DOM.modalImage.alt = project.altThumbnail || project.title;
         DOM.modalDescription.textContent = project.description;
+        
+        // Remove any existing modal-meta containers to prevent accumulation
+        const existingMetaContainers = document.querySelectorAll('.modal-meta');
+        existingMetaContainers.forEach(container => container.remove());
+        
+        // Crear contenedor para las etiquetas meta (fecha, jugabilidad, académico)
+        const modalMetaContainer = document.createElement('div');
+        modalMetaContainer.className = 'modal-meta';
+        
+        // Añadir etiqueta de fecha de lanzamiento
+        const releaseDateTag = document.createElement('div');
+        releaseDateTag.className = 'project-release-date';
+        releaseDateTag.innerHTML = `<i class="fas fa-calendar-alt"></i> ${project.releaseDate || 'En desarrollo'}`;
+        modalMetaContainer.appendChild(releaseDateTag);
+        
+        // Añadir etiqueta de jugabilidad si está definida
+        if (project.playable !== undefined) {
+            const playableTag = document.createElement('div');
+            playableTag.className = `project-status ${project.playable ? 'playable' : 'not-playable'}`;
+            playableTag.innerHTML = `<i class="fas ${project.playable ? 'fa-gamepad' : 'fa-code'}"></i> ${project.playable ? translations[state.currentLang]["playable"] : translations[state.currentLang]["not-playable"]}`;
+            modalMetaContainer.appendChild(playableTag);
+        }
+        
+        // Añadir etiqueta académica si corresponde
+        if (project.academic) {
+            const academicTag = document.createElement('div');
+            academicTag.className = 'project-academic';
+            academicTag.title = `${project.academic.institution} - ${project.academic.course} (${project.academic.year})`;
+            academicTag.innerHTML = `<i class="fas fa-graduation-cap"></i> Académico`;
+            modalMetaContainer.appendChild(academicTag);
+        }
+        
+        // Insertar el contenedor de etiquetas después del título
+        DOM.modalTitle.parentNode.insertBefore(modalMetaContainer, DOM.modalDescription);
 
         // Limpiar galería y enlaces anteriores
         DOM.modalGallery.innerHTML = '';
@@ -421,6 +459,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             DOM.modalTags.appendChild(li);
         });
+        
+        // Ya no añadimos la etiqueta académica aquí porque la hemos movido a la parte superior del modal
 
 
         // Llenar enlaces con los mismos botones que aparecen en las tarjetas

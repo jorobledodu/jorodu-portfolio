@@ -49,6 +49,12 @@
       "thumbnail": "Resources/Videos/mecanicas_FPS.mp4",
       "releaseDate": "2024",
       "playable": true,
+      "academic": {
+        "isAcademic": true,
+        "institution": "Universidad Europea",
+        "course": "Máster en Diseño y Programación de Videojuegos",
+        "year": "2024"
+      },
       "tags": [
         {
           "name": "Unity",
@@ -84,8 +90,14 @@
       "title": "TFG - Magic Shooter",
       "description": "Defiende la ciudad de los monstruos invasores combinando magia y disparos. Derrota al máximo de enemigos que puedas y protege la ciudad en esta trepidante aventura FPS.",
       "thumbnail": "Resources/Images/magic_shooter-icon.jpg",
-      "releaseDate": "2023",
+      "releaseDate": "2024",
       "playable": true,
+      "academic": {
+        "isAcademic": true,
+        "institution": "Florida Universitària",
+        "course": "Grado en Desarrollo de Videojuegos",
+        "year": "2024"
+      },
       "tags": [
         {
           "name": "Unity",
@@ -135,6 +147,12 @@
       "thumbnail": "Resources/Images/soulveler-icon.png",
       "releaseDate": "2023",
       "playable": true,
+      "academic": {
+        "isAcademic": true,
+        "institution": "Florida Universitària",
+        "course": "Grado en Desarrollo de Videojuegos",
+        "year": "2023"
+      },
       "tags": [
         {
           "name": "Unity",
@@ -181,6 +199,12 @@
       "thumbnail": "Resources/Videos/magic_campus.mp4",
       "releaseDate": "2023",
       "playable": true,
+      "academic": {
+        "isAcademic": true,
+        "institution": "Florida Universitària",
+        "course": "Grado en Desarrollo de Videojuegos",
+        "year": "2023"
+      },
       "tags": [
         {
           "name": "Unity",
@@ -228,6 +252,12 @@
       "thumbnail": "Resources/Videos/shoot_test.mp4",
       "releaseDate": "2023",
       "playable": true,
+      "academic": {
+        "isAcademic": true,
+        "institution": "Florida Universitària",
+        "course": "Grado en Desarrollo de Videojuegos",
+        "year": "2023"
+      },
       "tags": [
         {
           "name": "Unity",
@@ -274,6 +304,12 @@
       "thumbnail": "Resources/Images/the_traveller-icon.png",
       "releaseDate": "2023",
       "playable": true,
+      "academic": {
+        "isAcademic": true,
+        "institution": "Florida Universitària",
+        "course": "Grado en Desarrollo de Videojuegos",
+        "year": "2023"
+      },
       "tags": [
         {
           "name": "Unity",
@@ -308,6 +344,12 @@
       "thumbnail": "Resources/Images/flafy_bat-icon.png",
       "releaseDate": "2022",
       "playable": true,
+      "academic": {
+        "isAcademic": true,
+        "institution": "Florida Universitària",
+        "course": "Grado en Desarrollo de Videojuegos",
+        "year": "2022"
+      },
       "tags": [
         {
           "name": "Unity",

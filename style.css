@@ -431,7 +431,7 @@ body {
     color: #2ed573;
 }
 
-.project-status {
+.project-status, .project-academic {
     display: flex;
     align-items: center;
     gap: 0.3rem;
@@ -446,8 +446,57 @@ body {
 }
 
 .project-status.not-playable {
-    background-color: rgba(255, 71, 87, 0.2);
+    background-color: ff4757(255, 71, 87, 0.2);
     color: #ff4757;
+}
+
+.project-academic {
+    color: white;
+    background-color: rgba(255, 71, 87, 0.8);
+    position: relative;
+    cursor: help;
+    transition: all 0.3s ease;
+}
+
+/* Estilos para las etiquetas en el modal */
+.modal-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+}
+
+.modal-meta .project-release-date,
+.modal-meta .project-status,
+.modal-meta .project-academic {
+    font-size: 0.9rem;
+}
+
+/* Hover solo para etiquetas en el modal */
+.modal-meta .project-academic:hover {
+    background-color: rgba(0, 182, 255, 0.2);
+    color: #00b6ff;
+}
+
+/* Añadimos el tooltip solo para las etiquetas académicas en el modal */
+.modal-meta .project-academic:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #00b6ff;
+    color: white;
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    z-index: 10;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    min-width: max-content;
 }
 
 .botones-proyecto {
@@ -478,12 +527,24 @@ body.dark-theme {
 }
 
 /* Formulario de contacto */
+#contacto h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+    position: relative;
+}
+
 .contact-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     max-width: 500px;
     margin: 2rem auto;
+}
+
+.form-group {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .form-group input,
@@ -495,6 +556,8 @@ body.dark-theme {
     background: var(--current-card-bg);
     color: var(--current-text);
     transition: var(--transition);
+    box-sizing: border-box;
+    resize: none; /* Evita que el usuario pueda redimensionar el textarea */
 }
 
 .form-group input:focus,
@@ -690,6 +753,18 @@ body.dark-theme {
     .stickman-container {
         right: -45px;
     }
+    
+    /* Mejorar responsive del formulario de contacto */
+    .contact-form {
+        width: 100%;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+    }
+    
+    #contacto {
+        width: 100%;
+        box-sizing: border-box;
+    }
 }
 
 @media (max-width: 480px) {
@@ -698,7 +773,18 @@ body.dark-theme {
     }
 
     .main-content {
-        padding: 0 1rem;
+        padding: 0 0.5rem;
+    }
+    
+    /* Ajustes adicionales para el formulario en móviles muy pequeños */
+    .form-group input,
+    .form-group textarea {
+        padding: 0.8rem;
+    }
+    
+    .contact-form {
+        padding: 0;
+        margin: 1.5rem auto;
     }
 }
 
@@ -792,7 +878,7 @@ body.dark-theme {
 }
 
 .play-demo-btn-card {
-    background: var(--color-primary);
+    background: #ff4900;
     color: white;
     padding: 0.5rem;
     border: 2px solid transparent;
@@ -810,8 +896,9 @@ body.dark-theme {
 
 .play-demo-btn-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(108, 92, 231, 0.3);
-    border-color: var(--color-primary);
+    background: #00b6ff;
+    box-shadow: 0 6px 18px rgba(0, 182, 255, 0.3);
+    border-color: #00b6ff;
 }
 
 .play-demo-btn-card {
