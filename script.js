@@ -721,11 +721,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Setup profile image interaction for mobile devices
         setupProfileImageInteraction();
-        
-        // Mostrar la versión del sitio
-        if (DOM.siteVersionElement) {
-            DOM.siteVersionElement.textContent = SITE_VERSION;
-        }
 
         // Configurar event listeners para botones interactivos
         setupEventListeners();
