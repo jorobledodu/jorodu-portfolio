@@ -36,7 +36,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         socialIcons: document.querySelectorAll('.svg-icon'), // Iconos de redes sociales
         profileImgContainer: document.querySelector('.profile-img-container'), // Added profile image container reference
         versionDisplay: document.getElementById('version-display'),
-        siteVersionElement: document.getElementById('site-version')
+        siteVersionElement: document.getElementById('site-version'),
+        fullscreenOverlay: null // Se inicializará cuando sea necesario
     };
 
     // Estado de la aplicación
@@ -383,9 +384,57 @@ document.addEventListener('DOMContentLoaded', async () => {
                 DOM.modalImage.alt = imgElement.alt;
                 document.querySelectorAll('#modal-galeria-proyecto img, #modal-galeria-proyecto video').forEach(item => item.classList.remove('active'));
                 imgElement.classList.add('active');
+                
+                // Añadir funcionalidad para ampliar la imagen a pantalla completa
+                DOM.modalImage.addEventListener('click', function() {
+                    openFullscreenImage(this.src, this.alt);
+                });
+                
+                // Función para abrir la imagen en pantalla completa
+                function openFullscreenImage(src, alt) {
+                    // Crear overlay para pantalla completa si no existe
+                    if (!DOM.fullscreenOverlay) {
+                        DOM.fullscreenOverlay = document.createElement('div');
+                        DOM.fullscreenOverlay.className = 'fullscreen-overlay';
+                        DOM.fullscreenOverlay.innerHTML = `
+                            <div class="fullscreen-container">
+                                <button class="close-fullscreen" aria-label="Cerrar pantalla completa">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                <img class="fullscreen-image" alt="Imagen en pantalla completa">
+                            </div>
+                        `;
+                        document.body.appendChild(DOM.fullscreenOverlay);
+                    }
+                    
+                    // Añadir evento para cerrar al hacer clic en el botón o fuera de la imagen
+                    const closeBtn = DOM.fullscreenOverlay.querySelector('.close-fullscreen');
+                    closeBtn.addEventListener('click', closeFullscreenImage);
+                    DOM.fullscreenOverlay.addEventListener('click', (e) => {
+                        if (e.target === DOM.fullscreenOverlay) {
+                            closeFullscreenImage();
+                        }
+                    });
+                    
+                    // Mostrar la imagen en pantalla completa
+                    const fullscreenImage = DOM.fullscreenOverlay.querySelector('.fullscreen-image');
+                    fullscreenImage.src = src;
+                    fullscreenImage.alt = alt;
+                    DOM.fullscreenOverlay.style.display = 'flex';
+                    document.body.style.overflow = 'hidden'; // Evitar scroll
+                }
+                
+                // Función para cerrar la imagen en pantalla completa
+                function closeFullscreenImage() {
+                    if (DOM.fullscreenOverlay) {
+                        DOM.fullscreenOverlay.style.display = 'none';
+                        document.body.style.overflow = 'auto'; // Restaurar scroll
+                    }
+                }
             });
             return imgElement;
         }
+    
     }
 
     // Abrir modal de proyecto
