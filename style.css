@@ -679,13 +679,16 @@ body.dark-theme {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    position: relative;
 }
 
-.modal-main-img-container img {
+.modal-main-img-container img,
+.modal-main-img-container video {
     width: 100%;
     height: auto;
     max-height: 60vh;
     object-fit: contain;
+    max-width: 100%;
 }
 
 .modal-gallery {
@@ -765,6 +768,23 @@ body.dark-theme {
         width: 100%;
         box-sizing: border-box;
     }
+    
+    /* Mejorar visualización de videos en pantallas pequeñas */
+    .modal-main-img-container {
+        max-height: 50vh;
+    }
+    
+    .modal-main-img-container video,
+    #current-modal-video {
+        max-height: 50vh;
+    }
+    
+    /* Ajustar controles de video para mejor usabilidad en móviles */
+    video::-webkit-media-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 @media (max-width: 480px) {
@@ -785,6 +805,27 @@ body.dark-theme {
     .contact-form {
         padding: 0;
         margin: 1.5rem auto;
+    }
+    
+    /* Ajustes específicos para videos en pantallas muy pequeñas */
+    .modal-main-img-container {
+        max-height: 40vh;
+    }
+    
+    .modal-main-img-container video,
+    #current-modal-video {
+        max-height: 40vh;
+    }
+    
+    /* Ajustar la galería de miniaturas para mejor visualización */
+    .modal-gallery {
+        gap: 0.3rem;
+    }
+    
+    .modal-gallery img,
+    .modal-gallery video {
+        width: 100px;
+        height: 70px;
     }
 }
 

@@ -334,14 +334,26 @@ document.addEventListener('DOMContentLoaded', async () => {
                 modalVideo.controls = true;
                 modalVideo.style.width = '100%';
                 modalVideo.style.height = 'auto';
-                modalVideo.style.maxHeight = '600px';
+                modalVideo.style.maxHeight = '60vh';
+                modalVideo.style.maxWidth = '100%';
                 modalVideo.style.objectFit = 'contain';
+                modalVideo.style.display = 'block';
+                modalVideo.style.margin = '0 auto';
                 
                 // Detectar si es un video vertical y ajustar el estilo
                 modalVideo.addEventListener('loadedmetadata', function() {
                     if (this.videoWidth < this.videoHeight) {
-                        // Es un video vertical, limitamos el ancho para que los controles se vean bien
-                        this.style.width = '60%';
+                        // Es un video vertical, ajustamos el estilo según el ancho de la pantalla
+                        if (window.innerWidth <= 480) {
+                            // En pantallas muy pequeñas, usamos más ancho
+                            this.style.width = '85%';
+                        } else if (window.innerWidth <= 768) {
+                            // En tablets y móviles medianos
+                            this.style.width = '75%';
+                        } else {
+                            // En pantallas grandes
+                            this.style.width = '60%';
+                        }
                         this.style.margin = '0 auto';
                         this.style.display = 'block';
                     }
@@ -447,13 +459,27 @@ document.addEventListener('DOMContentLoaded', async () => {
                     modalVideo.style.maxHeight = '600px';
                     modalVideo.style.objectFit = 'contain';
                     
-                    // Detectar si es un video vertical y ajustar el estilo
+                    // Detectar si es un video vertical u horizontal y ajustar el estilo
                     modalVideo.addEventListener('loadedmetadata', function() {
                         if (this.videoWidth < this.videoHeight) {
                             // Es un video vertical, limitamos el ancho para que los controles se vean bien
-                            this.style.width = '60%';
+                            if (window.innerWidth <= 480) {
+                                // En pantallas muy pequeñas, usamos más ancho
+                                this.style.width = '85%';
+                            } else if (window.innerWidth <= 768) {
+                                // En tablets y móviles medianos
+                                this.style.width = '75%';
+                            } else {
+                                // En pantallas grandes
+                                this.style.width = '60%';
+                            }
                             this.style.margin = '0 auto';
                             this.style.display = 'block';
+                        } else {
+                            // Es un video horizontal, aseguramos que se ajuste correctamente
+                            this.style.width = '100%';
+                            this.style.maxHeight = '60vh';
+                            this.style.objectFit = 'contain';
                         }
                     });
                     modalVideo.setAttribute('id', 'current-modal-video');
