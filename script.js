@@ -5,6 +5,7 @@
  */
 
 import svgIcons from './svg-icons.js';
+import { SITE_VERSION } from './version.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     // DOM element references for better performance and maintainability
@@ -33,7 +34,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         gameFrame: document.getElementById('game-frame'),
         herramientasContainer: document.querySelector('.herramientas .etiquetas-tecnologias'), // Contenedor de herramientas
         socialIcons: document.querySelectorAll('.svg-icon'), // Iconos de redes sociales
-        profileImgContainer: document.querySelector('.profile-img-container') // Added profile image container reference
+        profileImgContainer: document.querySelector('.profile-img-container'), // Added profile image container reference
+        versionDisplay: document.getElementById('version-display'),
+        siteVersionElement: document.getElementById('site-version')
     };
 
     // Estado de la aplicación
@@ -59,7 +62,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Cargar datos del portfolio
     async function loadPortfolioData() {
         try {
-            const response = await fetch('portfolioData.json');
+            // Add version parameter to prevent caching
+            const response = await fetch(`portfolioData.json?v=${new Date().getTime()}`);
             const data = await response.json();
             return data; // Return the data directly to preserve original order
         } catch (error) {
@@ -332,6 +336,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 modalVideo.style.height = 'auto';
                 modalVideo.style.maxHeight = '600px';
                 modalVideo.style.objectFit = 'contain';
+                
+                // Detectar si es un video vertical y ajustar el estilo
+                modalVideo.addEventListener('loadedmetadata', function() {
+                    if (this.videoWidth < this.videoHeight) {
+                        // Es un video vertical, limitamos el ancho para que los controles se vean bien
+                        this.style.width = '60%';
+                        this.style.margin = '0 auto';
+                        this.style.display = 'block';
+                    }
+                });
                 modalVideo.setAttribute('id', 'current-modal-video');
                 DOM.modalImage.parentNode.insertBefore(modalVideo, DOM.modalImage);
                 
@@ -432,6 +446,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                     modalVideo.style.height = 'auto';
                     modalVideo.style.maxHeight = '600px';
                     modalVideo.style.objectFit = 'contain';
+                    
+                    // Detectar si es un video vertical y ajustar el estilo
+                    modalVideo.addEventListener('loadedmetadata', function() {
+                        if (this.videoWidth < this.videoHeight) {
+                            // Es un video vertical, limitamos el ancho para que los controles se vean bien
+                            this.style.width = '60%';
+                            this.style.margin = '0 auto';
+                            this.style.display = 'block';
+                        }
+                    });
                     modalVideo.setAttribute('id', 'current-modal-video');
                     DOM.modalImage.parentNode.insertBefore(modalVideo, DOM.modalImage);
                 } else {
@@ -717,6 +741,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Setup profile image interaction for mobile devices
         setupProfileImageInteraction();
+        
+        // Mostrar la versión del sitio
+        if (DOM.siteVersionElement) {
+            DOM.siteVersionElement.textContent = SITE_VERSION;
+        }
 
         // Configurar event listeners para botones interactivos
         setupEventListeners();

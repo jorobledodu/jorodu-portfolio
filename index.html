@@ -7,11 +7,32 @@
     <meta name="description"
         content="Jorge Robledo - Desarrollador de videojuegos y diseñador especializado en Unity, C#, y experiencias interactivas" />
     <title>Jorge Robledo | Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css" id="main-stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Press+Start+2P&family=Rubik+Bubbles&display=swap" />
     <link rel="icon" href="Resources/Images/perfil-avatar.png" type="image/x-icon" />
+    
+    <!-- Version control script for cache busting -->
+    <script type="module">
+        import { SITE_VERSION, checkVersion } from './version.js';
+        
+        // Check version and handle cache clearing if needed
+        checkVersion();
+        
+        // Add version parameter to CSS and JS files
+        function addVersionToAssets() {
+            const stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+            stylesheets.forEach(stylesheet => {
+                if (stylesheet.href && stylesheet.href.includes(window.location.origin) && !stylesheet.href.includes('?v=')) {
+                    stylesheet.href = `${stylesheet.href}?v=${SITE_VERSION}`;
+                }
+            });
+        }
+        
+        // Apply versioning to assets
+        addVersionToAssets();
+    </script>
 </head>
 
 <body>
@@ -27,6 +48,7 @@
     </div>
 
     <div class="notebook-page">
+        <div class="notebook-content">
         <section id="info-personal">
             <div class="container">
                 <div class="profile-img-container" aria-label="Foto de perfil con efecto interactivo, hover para girar">
@@ -160,6 +182,7 @@
                 </div>
             </section>
         </main>
+        </div>
     </div>
 
     <div id="modal-proyecto" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo-proyecto">
@@ -207,6 +230,10 @@
     <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">
         <i class="fas fa-arrow-up"></i>
     </button>
+
+    <div class="version-display" id="version-display">
+        <span data-i18n="version">Versión</span>: <span id="site-version"></span>
+    </div>
 
     <script src="translations.js"></script>
     <!-- EmailJS library for contact form functionality -->
