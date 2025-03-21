@@ -27,19 +27,23 @@
         "github": "https://github.com/jorobledodu/Test"
       },
       "gallery": [
-        "Resources/Videos/command_console.mp4",
         "Resources/Images/command_console-icon.png",
-        "Resources/Images/command_console-1.png"
+        "Resources/Images/command_console-1.png",
+        "Resources/Images/command_console-2.png",
+        "Resources/Images/command_console-3.png",
+        "Resources/Videos/command_console.mp4"
       ],
       "effects": [
         "neon",
         "terminal"
       ],
-      "altThumbnail": "Video del proyecto Command Console.",
+      "altThumbnail": "Icono del proyecto Command Console.",
       "altGallery": [
-        "Video del proyecto Command Console.",
+        "Icono del proyecto Command Console.",
         "Captura de pantalla del proyecto Command Console.",
-        "Captura de pantalla del proyecto Command Console."
+        "Captura de pantalla del proyecto Command Console.",
+        "Captura de pantalla del proyecto Command Console.",
+        "Video del proyecto Command Console."
       ]
     },
     {
@@ -328,7 +332,7 @@
         "itch": "https://robledodu.itch.io/the-traveller"
       },
       "gallery": [
-        "Resources/Images/soulveler-icon.png",
+        "Resources/Images/the_traveller-icon.png",
         "Resources/Videos/the_traveller.mp4"
       ],
       "altThumbnail": "Icono del juego The Traveller.",
