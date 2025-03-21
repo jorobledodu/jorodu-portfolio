@@ -434,7 +434,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             return imgElement;
         }
-    
     }
 
     // Abrir modal de proyecto
