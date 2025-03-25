@@ -4,7 +4,7 @@
  */
 
 // Current version of the website - update this when making changes to force cache refresh
-const SITE_VERSION = '1.0.1';
+const SITE_VERSION = '1.0.2';
 
 // Key used for storing the version in localStorage
 const VERSION_STORAGE_KEY = 'site_version';

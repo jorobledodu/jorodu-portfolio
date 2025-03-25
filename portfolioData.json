@@ -2,6 +2,56 @@
   "items": [
     {
       "type": "project",
+      "title": "Diseño y blockout de un nivel de un videojuego",
+      "description": "Este es el trabajo final de la asignatura de Diseño de Niveles del Máster en Diseño y Programación de Videojuegos de la Universidad Europea.",
+      "thumbnail": "Resources/Images/Nuevo_1.jpg",
+      "releaseDate": "2025",
+      "playable": true,
+      "academic": {
+        "isAcademic": true,
+        "institution": "Universidad Europea",
+        "course": "Máster en Diseño y Programación de Videojuegos",
+        "year": "2025"
+      },
+      "tags": [
+        {
+          "name": "Unity",
+          "iconClass": "fab fa-unity"
+        },
+        {
+          "name": "C#",
+          "iconClass": "fas fa-code"
+        },
+        {
+          "name": "2D",
+          "iconClass": "fas fa-cube"
+        }
+      ],
+      "links": {
+        "demo": "https://itch.io/embed-upload/13184360?color=333333",
+        "itch": "https://robledodu.itch.io/diseo-y-blockout-de-un-nivel-de-un-videojuego",
+        "pdf": "Resources/PDF/Documento_de_diseño_junto_al_diseño_de_juego_final.pdf"
+      },
+      "gallery": [
+        "Resources/Images/PRIMERA ITERACIÓN CON EL DISEÑO.png",
+        "Resources/Images/PRIMER BLOCKOUT Y SEGUNDA ITERACIÓN DEL DISEÑO.png",
+        "Resources/Images/TERCERA INTERACIÓN CON EL DISEÑO Y BLOCKOUT.png",
+        "Resources/Images/CUARTA Y ÚLTIMA ITERACIÓN.png"
+      ],
+      "effects": [
+        "neon",
+        "terminal"
+      ],
+      "altThumbnail": "Captura primera sala.",
+      "altGallery": [
+        "Diseño original a papel.",
+        "Segunda iteración del diseño.",
+        "Tercera iteración del diseño.",
+        "Quarta y última iteración del diseño."
+      ]
+    },
+    {
+      "type": "project",
       "title": "Command Console",
       "description": "Esta consola, integrada en una escena 2D simple, permite la manipulación en tiempo real de un valor numérico mediante comandos de texto. Ideal para experimentar y comprender cómo los cambios afectan a un elemento central, esta herramienta facilita la exploración de conceptos de programación y el diseño de juegos de forma interactiva y directa. Además, ofrece una valiosa ayuda en la depuración del proyecto, permitiendo a los desarrolladores modificar valores y probar funcionalidades de manera rápida y eficiente para identificar y corregir errores.",
       "thumbnail": "Resources/Images/command_console-icon.png",
