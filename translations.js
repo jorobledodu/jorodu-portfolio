@@ -7,7 +7,7 @@ const translations = {
     "es": {
         "location": "Valencia, España",
         "about-title": "Sobre mí",
-        "about-description": "Soy Jorge Robledo, desarrollador y programador de videojuegos. Actualmente me estoy formando en el campo del diseño. Me apasiona crear experiencias y mecánicas interactivas y únicas.",
+        "about-description": "Soy Jorge Robledo, desarrollador y programador de videojuegos con una fuerte orientación hacia el diseño de sistemas y mecánicas. Me apasiona crear experiencias interactivas únicas y trasladar conceptos a prototipos funcionales en el motor. Actualmente, busco consolidar mi perfil como Technical Designer o Gameplay Programmer, combinando mis habilidades de programación y diseño para contribuir en la creación de sistemas de juego sólidos, iterativos y bien balanceados.",
         "experience-title": "Experiencia laboral y académica",
         "tools-title": "Herramientas y Tecnologías",
         "view-cv": "Ver CV",
@@ -37,7 +37,7 @@ const translations = {
     "en": {
         "location": "Valencia, Spain",
         "about-title": "About Me",
-        "about-description": "I'm Jorge Robledo, videogame developer and programmer. I'm currently training in the design field. I'm passionate about creating interactive and unique experiences and mechanics.",
+        "about-description": "I am Jorge Robledo, a game developer and programmer with a strong focus on system and mechanics design. I am passionate about creating unique interactive experiences and bringing concepts to life through functional prototypes in the game engine. Currently, I am looking to further develop my profile as a Technical Designer or Gameplay Programmer, combining my programming and design skills to contribute to the creation of solid, iterative, and well-balanced game systems.",
         "experience-title": "Work and academic experience",
         "tools-title": "Tools & Technologies",
         "view-cv": "View CV",
