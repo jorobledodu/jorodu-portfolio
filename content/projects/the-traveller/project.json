@@ -1,0 +1,58 @@
+{
+    "id": "the-traveller",
+    "type": "game",
+    "title": {
+        "es": "The Traveller",
+        "en": "The Traveller"
+    },
+    "description": {
+        "es": "The Traveller se basa en una serie de minijuegos propuestos junto a especialistas de VITHAS y orientados a la rehabilitacion cognitiva. El proyecto incluye perfiles de usuario, niveles de dificultad y almacenamiento de datos.",
+        "en": "The Traveller is built around a series of minigames created alongside VITHAS specialists and aimed at cognitive rehabilitation. The project includes user profiles, difficulty settings, and data storage."
+    },
+    "thumbnail": "images/the_traveller-icon.png",
+    "releaseDate": "2023",
+    "playable": true,
+    "academic": {
+        "institution": "Florida Universitaria",
+        "course": {
+            "es": "Grado en Desarrollo de Videojuegos",
+            "en": "Bachelor's Degree in Game Development"
+        },
+        "year": "2023"
+    },
+    "tags": [
+        {
+            "name": "Unity",
+            "iconClass": "fab fa-unity"
+        },
+        {
+            "name": "C#",
+            "iconClass": "fas fa-code"
+        },
+        {
+            "name": "2D Art",
+            "iconClass": "fas fa-paint-brush"
+        }
+    ],
+    "links": {
+        "itch": "https://robledodu.itch.io/the-traveller"
+    },
+    "gallery": [
+        "images/the_traveller-icon.png",
+        "videos/the_traveller.mp4"
+    ],
+    "altThumbnail": {
+        "es": "Icono del juego The Traveller.",
+        "en": "The Traveller game icon."
+    },
+    "altGallery": {
+        "es": [
+            "Icono del juego The Traveller.",
+            "Video del juego The Traveller."
+        ],
+        "en": [
+            "The Traveller game icon.",
+            "The Traveller gameplay video."
+        ]
+    }
+}

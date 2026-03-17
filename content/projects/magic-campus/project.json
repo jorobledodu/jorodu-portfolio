@@ -1,0 +1,71 @@
+{
+    "id": "magic-campus",
+    "type": "game",
+    "title": {
+        "es": "Magic Campus",
+        "en": "Magic Campus"
+    },
+    "description": {
+        "es": "Adentrate en Magic Campus, una experiencia magica de realidad virtual basada en gestos con las manos y movimiento. Aprende hechizos, prepara pociones y manipula objetos solo con tus manos.",
+        "en": "Step into Magic Campus, a magical VR experience built around hand gestures and movement. Learn spells, brew potions, and manipulate objects using only your hands."
+    },
+    "thumbnail": "videos/magic_campus.mp4",
+    "releaseDate": "2023",
+    "playable": true,
+    "academic": {
+        "institution": "Florida Universitaria",
+        "course": {
+            "es": "Grado en Desarrollo de Videojuegos",
+            "en": "Bachelor's Degree in Game Development"
+        },
+        "year": "2023"
+    },
+    "tags": [
+        {
+            "name": "Unity",
+            "iconClass": "fab fa-unity"
+        },
+        {
+            "name": "C#",
+            "iconClass": "fas fa-code"
+        },
+        {
+            "name": "VR",
+            "iconClass": "fa-solid fa-vr-cardboard"
+        },
+        {
+            "name": "3D",
+            "iconClass": "fas fa-cube"
+        }
+    ],
+    "links": {
+        "itch": "https://robledodu.itch.io/magic-campus"
+    },
+    "gallery": [
+        "videos/magic_campus.mp4",
+        "images/magic_campus-1.png",
+        "images/magic_campus-2.png",
+        "images/magic_campus-3.png",
+        "images/magic_campus-4.png"
+    ],
+    "altThumbnail": {
+        "es": "Gameplay de Magic Campus.",
+        "en": "Magic Campus gameplay."
+    },
+    "altGallery": {
+        "es": [
+            "Gameplay de Magic Campus.",
+            "Captura de Magic Campus.",
+            "Captura de Magic Campus.",
+            "Captura de Magic Campus.",
+            "Captura de Magic Campus."
+        ],
+        "en": [
+            "Magic Campus gameplay.",
+            "Magic Campus screenshot.",
+            "Magic Campus screenshot.",
+            "Magic Campus screenshot.",
+            "Magic Campus screenshot."
+        ]
+    }
+}

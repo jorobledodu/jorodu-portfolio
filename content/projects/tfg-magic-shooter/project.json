@@ -1,0 +1,74 @@
+{
+    "id": "tfg-magic-shooter",
+    "type": "game",
+    "title": {
+        "es": "TFG - Magic Shooter",
+        "en": "Final Degree Project - Magic Shooter"
+    },
+    "description": {
+        "es": "Defiende la ciudad de los monstruos invasores combinando magia y disparos. Derrota al maximo numero de enemigos posible y protege la ciudad en esta aventura FPS.",
+        "en": "Defend the city from invading monsters by combining magic and gunplay. Defeat as many enemies as possible and protect the city in this fast-paced FPS adventure."
+    },
+    "thumbnail": "images/magic_shooter-icon.jpg",
+    "releaseDate": "2024",
+    "playable": true,
+    "academic": {
+        "institution": "Florida Universitaria",
+        "course": {
+            "es": "Grado en Desarrollo de Videojuegos",
+            "en": "Bachelor's Degree in Game Development"
+        },
+        "year": "2024"
+    },
+    "tags": [
+        {
+            "name": "Unity",
+            "iconClass": "fab fa-unity"
+        },
+        {
+            "name": "C#",
+            "iconClass": "fas fa-code"
+        },
+        {
+            "name": "3D",
+            "iconClass": "fas fa-cube"
+        }
+    ],
+    "links": {
+        "itch": "https://robledodu.itch.io/magic-shooter",
+        "pdf": "pdf/TFG_magic_shooter.pdf"
+    },
+    "gallery": [
+        "images/magic_shooter-icon.jpg",
+        "videos/magic_shooter.mp4",
+        "images/magic_shooter-1.jpg",
+        "images/magic_shooter-2.jpg",
+        "images/magic_shooter-3.jpg",
+        "images/magic_shooter-4.jpg",
+        "images/magic_shooter-5.jpg"
+    ],
+    "altThumbnail": {
+        "es": "Icono del juego Magic Shooter.",
+        "en": "Magic Shooter game icon."
+    },
+    "altGallery": {
+        "es": [
+            "Icono del juego Magic Shooter.",
+            "Gameplay de Magic Shooter.",
+            "Captura de Magic Shooter.",
+            "Captura de Magic Shooter.",
+            "Captura de Magic Shooter.",
+            "Captura de Magic Shooter.",
+            "Captura de Magic Shooter."
+        ],
+        "en": [
+            "Magic Shooter game icon.",
+            "Magic Shooter gameplay.",
+            "Magic Shooter screenshot.",
+            "Magic Shooter screenshot.",
+            "Magic Shooter screenshot.",
+            "Magic Shooter screenshot.",
+            "Magic Shooter screenshot."
+        ]
+    }
+}

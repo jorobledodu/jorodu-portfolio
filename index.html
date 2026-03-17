@@ -1,259 +1,360 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-        content="Jorge Robledo - Desarrollador de videojuegos y diseñador especializado en Unity, C#, y experiencias interactivas" />
+    <meta
+      name="description"
+      content="Jorge Robledo - Desarrollador de videojuegos y diseñador especializado en Unity, C#, y experiencias interactivas"
+    />
     <title>Jorge Robledo | Portfolio</title>
     <link rel="stylesheet" href="style.css" id="main-stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Press+Start+2P&family=Rubik+Bubbles&display=swap" />
-    <link rel="icon" href="Resources/Images/perfil-avatar.png" type="image/x-icon" />
-    
-    <!-- Version control script for cache busting -->
-    <script type="module">
-        import { SITE_VERSION, checkVersion } from './version.js';
-        
-        // Check version and handle cache clearing if needed
-        checkVersion();
-        
-        // Add version parameter to CSS and JS files
-        function addVersionToAssets() {
-            const stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
-            stylesheets.forEach(stylesheet => {
-                if (stylesheet.href && stylesheet.href.includes(window.location.origin) && !stylesheet.href.includes('?v=')) {
-                    stylesheet.href = `${stylesheet.href}?v=${SITE_VERSION}`;
-                }
-            });
-        }
-        
-        // Apply versioning to assets
-        addVersionToAssets();
-    </script>
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Press+Start+2P&family=Rubik+Bubbles&display=swap"
+    />
+    <link
+      rel="icon"
+      href="Resources/Images/perfil-avatar.png"
+      type="image/x-icon"
+    />
+  </head>
 
-<body>
+  <body>
     <div class="top-navbar">
-        <div class="language-selector">
-            <button class="lang-btn active" data-lang="es">ES</button>
-            <button class="lang-btn" data-lang="en">EN</button>
-        </div>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
-            <i class="fas fa-sun"></i>
-            <i class="fas fa-moon"></i>
-        </button>
+      <div class="language-selector">
+        <button class="lang-btn active" data-lang="es">ES</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+      </button>
     </div>
 
     <div class="notebook-page">
-        <div class="notebook-content">
+      <div class="notebook-content">
         <section id="info-personal">
-            <div class="container">
-                <div class="profile-img-container" aria-label="Foto de perfil con efecto interactivo, hover para girar">
-                    <div class="profile-img-inner">
-                        <div class="profile-img-front">
-                            <img src="Resources/Images/perfil-avatar.png" alt="Avatar jorodu" class="profile-img"
-                                loading="lazy" />
-                        </div>
-                        <div class="profile-img-back">
-                            <img src="Resources/Images/perfil-jorodu.png" alt="Foto Jorge Robledo" class="profile-img"
-                                loading="lazy" />
-                        </div>
-                    </div>
-                    <div class="stickman-container">
-                        <img src="Resources/Images/J.Stickman.png" alt="J.Stickman" class="stickman-img" loading="lazy" />
-                    </div>
+          <div class="container">
+            <div
+              class="profile-img-container"
+              aria-label="Foto de perfil con efecto interactivo, hover para girar"
+            >
+              <div class="profile-img-inner">
+                <div class="profile-img-front">
+                  <img
+                    src="Resources/Images/perfil-avatar.png"
+                    alt="Avatar jorodu"
+                    class="profile-img"
+                    loading="lazy"
+                  />
                 </div>
-                <div class="profile-line"></div>
-                <h1 class="developer-nickname"><span id="developer-nickname-text">Jorge Robledo</span></h1>
-                <p class="ubicacion"><i class="fas fa-map-marker-alt"></i> <span data-i18n="location">Valencia, España</span></p>
-
-                <div class="redes-sociales">
-                    <a href="https://github.com/jorobledodu" target="_blank" aria-label="GitHub">
-                        <span class="svg-icon github-icon"></span>
-                    </a>
-                    <a href="https://linkedin.com/in/jorobledodu" target="_blank" aria-label="LinkedIn">
-                        <span class="svg-icon linkedin-icon"></span>
-                    </a>
-                    <a href="https://robledodu.itch.io/" target="_blank" aria-label="Itch.io">
-                        <span class="svg-icon itchio-icon"></span>
-                    </a>
-                    <a href="https://x.com/robledodu" target="_blank" aria-label="Twitter">
-                        <span class="svg-icon twitter-icon"></span>
-                    </a>
+                <div class="profile-img-back">
+                  <img
+                    src="Resources/Images/perfil-jorodu.png"
+                    alt="Foto Jorge Robledo"
+                    class="profile-img"
+                    loading="lazy"
+                  />
                 </div>
-                <div class="contacto-email">
-                    <button id="copy-email" class="copy-email-btn" aria-label="Copiar email">
-                        <i class="fas fa-copy"></i> jorobledodu@gmail.com
-                        <span class="tooltip">¡Copiado!</span>
-                    </button>
-                </div>
-
-                <div class="cv-descarga">
-                    <a href="Resources/PDF/joge_robledo-cv_en.pdf" class="boton-cv" target="_blank"
-                        data-i18n="view-cv">
-                        <i class="fas fa-eye"></i> <span class="visually-hidden"></span> CV
-                    </a>
-                </div>
-
-                <div class="about-me">
-                    <h2 data-i18n="about-title">Sobre mí</h2>
-                    <p data-i18n="about-description">Desarrollador de videojuegos y programador con pasión por crear
-                        experiencias interactivas únicas.</p>
-                </div>
-
-                <div class="herramientas">
-                    <h2 data-i18n="tools-title">Herramientas y Tecnologías</h2>
-                    <ul class="etiquetas-tecnologias">
-                    </ul>
-                </div>
-
-                <div class="experience">
-                    <h2 data-i18n="experience-title">Experiencia</h2>
-                    <div class="experience-timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-date">08/2025 - Actualidad</div>
-                            <div class="timeline-content">
-                                <h3>Contrato de prácticas</h3>
-                                <p class="timeline-company">Halberd Studios</p>
-                                <p class="timeline-description">Diseñador y QA Tester en Mariachi Legends.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item academic">
-                            <div class="timeline-date">2024 - Actualidad</div>
-                            <div class="timeline-content">
-                                <h3>Máster universitario en diseño de videojuegos</h3>
-                                <p class="timeline-company">Universidad Europea</p>
-                                <p class="timeline-description"></p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">02/2023 - 05/2023</div>
-                            <div class="timeline-content">
-                                <h3>Contrato de prácticas</h3>
-                                <p class="timeline-company">Three Golden Monkeys</p>
-                                <p class="timeline-description">Desarrollo y programacion VR en Unity.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item academic">
-                            <div class="timeline-date">2019 - 2024</div>
-                            <div class="timeline-content">
-                                <h3>Diseño y desarrollo de videojuegos y experiencias interactivas</h3>
-                                <p class="timeline-institution">Florida Universitària/Universitat Politècnica de València (UPV)</p>
-                                <p class="timeline-description"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
+              <div class="stickman-container">
+                <img
+                  src="Resources/Images/J.Stickman.png"
+                  alt="J.Stickman"
+                  class="stickman-img"
+                  loading="lazy"
+                />
+              </div>
             </div>
+            <div class="profile-line"></div>
+            <h1 class="developer-nickname">
+              <span id="developer-nickname-text">Jorge Robledo</span>
+            </h1>
+            <p class="ubicacion">
+              <i class="fas fa-map-marker-alt"></i>
+              <span data-i18n="location">Valencia, España</span>
+            </p>
+
+            <div class="redes-sociales">
+              <a
+                href="https://github.com/jorobledodu"
+                target="_blank"
+                aria-label="GitHub"
+              >
+                <span class="svg-icon github-icon"></span>
+              </a>
+              <a
+                href="https://linkedin.com/in/jorobledodu"
+                target="_blank"
+                aria-label="LinkedIn"
+              >
+                <span class="svg-icon linkedin-icon"></span>
+              </a>
+              <a
+                href="https://robledodu.itch.io/"
+                target="_blank"
+                aria-label="Itch.io"
+              >
+                <span class="svg-icon itchio-icon"></span>
+              </a>
+              <a
+                href="https://x.com/robledodu"
+                target="_blank"
+                aria-label="Twitter"
+              >
+                <span class="svg-icon twitter-icon"></span>
+              </a>
+            </div>
+            <div class="contacto-email">
+              <button
+                id="copy-email"
+                class="copy-email-btn"
+                aria-label="Copiar email"
+              >
+                <i class="fas fa-copy"></i> jorobledodu@gmail.com
+                <span class="tooltip">¡Copiado!</span>
+              </button>
+            </div>
+
+            <div class="cv-descarga">
+              <a
+                href="Resources/PDF/joge_robledo-cv_en.pdf"
+                class="boton-cv"
+                target="_blank"
+                id="cv-link"
+              >
+                <i class="fas fa-eye"></i> <span data-i18n="view-cv">CV</span>
+              </a>
+            </div>
+
+            <div class="about-me">
+              <h2 data-i18n="about-title">Sobre mí</h2>
+              <p data-i18n="about-description">
+                Desarrollador de videojuegos y programador con pasión por crear
+                experiencias interactivas únicas.
+              </p>
+            </div>
+
+            <div class="herramientas">
+              <h2 data-i18n="tools-title">Herramientas y Tecnologías</h2>
+              <ul class="etiquetas-tecnologias"></ul>
+            </div>
+
+            <div class="experience">
+              <h2 data-i18n="experience-title">Experiencia</h2>
+              <div class="experience-timeline">
+                <div class="timeline-item">
+                  <div class="timeline-date" data-i18n="exp-halberd-date">
+                    08/2025 - Actualidad
+                  </div>
+                  <div class="timeline-content">
+                    <h3 data-i18n="exp-halberd-role">Contrato de practicas</h3>
+                    <p class="timeline-company">Halberd Studios</p>
+                    <p
+                      class="timeline-description"
+                      data-i18n="exp-halberd-desc"
+                    >
+                      Disenador y QA Tester en Mariachi Legends.
+                    </p>
+                  </div>
+                </div>
+                <div class="timeline-item academic">
+                  <div class="timeline-date" data-i18n="exp-master-date">
+                    2024 - Actualidad
+                  </div>
+                  <div class="timeline-content">
+                    <h3 data-i18n="exp-master-title">
+                      Master universitario en diseno de videojuegos
+                    </h3>
+                    <p class="timeline-company">Universidad Europea</p>
+                    <p class="timeline-description"></p>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-date">02/2023 - 05/2023</div>
+                  <div class="timeline-content">
+                    <h3 data-i18n="exp-tgm-role">Contrato de practicas</h3>
+                    <p class="timeline-company">Three Golden Monkeys</p>
+                    <p class="timeline-description" data-i18n="exp-tgm-desc">
+                      Desarrollo y programacion VR en Unity.
+                    </p>
+                  </div>
+                </div>
+                <div class="timeline-item academic">
+                  <div class="timeline-date">2019 - 2024</div>
+                  <div class="timeline-content">
+                    <h3 data-i18n="exp-degree-title">
+                      Diseno y desarrollo de videojuegos y experiencias
+                      interactivas
+                    </h3>
+                    <p class="timeline-institution">
+                      Florida Universitària/Universitat Politècnica de València
+                      (UPV)
+                    </p>
+                    <p class="timeline-description"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <main class="main-content">
-            <nav class="filter-nav">
-                <button class="filter-btn active" data-filter="all" data-i18n="filter-all">Todos</button>
-                <button class="filter-btn" data-filter="game" data-i18n="filter-games">Juegos</button>
-                <button class="filter-btn" data-filter="project" data-i18n="filter-projects">Proyectos</button>
-            </nav>
-
-            <section id="proyectos">
-                <div class="grid-proyectos">
-                </div>
-
-                <div id="no-results" class="no-results-message" style="display: none;" data-i18n="no-results">
-                    No se encontraron resultados.
-                </div>
-            </section>
-
-            <section id="contacto">
-                <h2 data-i18n="contact-title">Contacto</h2>
-                <form id="contact-form" class="contact-form">
-                    <div class="form-group">
-                        <label for="from_name" data-i18n="contact-name">Nombre</label>
-                        <input type="text" id="from_name" name="from_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" data-i18n="contact-email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message" data-i18n="contact-message">Mensaje</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="boton-cv" data-i18n="contact-send">
-                        <i class="fas fa-paper-plane"></i> <span class="visually-hidden">Enviar</span> Mensaje
-                    </button>
-                </form>
-                <div id="form-success" class="form-success" style="display: none;" data-i18n="contact-success">
-                    ¡Mensaje enviado correctamente! Te responderé lo antes posible.
-                </div>
-            </section>
-        </main>
-        </div>
-    </div>
-
-    <div id="modal-proyecto" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo-proyecto">
-        <div class="modal-contenido">
-            <span class="close-button" aria-label="Cerrar">&times;</span>
-            <h2 id="modal-titulo-proyecto"></h2>
-
-            <div class="modal-gallery-container">
-                <div class="modal-main-img-container">
-                    <img id="modal-img-proyecto" alt="Imagen del proyecto" loading="lazy" />
-                </div>
-                <div id="modal-galeria-proyecto" class="modal-gallery">
-                </div>
-            </div>
-
-            <p id="modal-descripcion-proyecto"></p>
-
-            <div class="modal-details">
-                <div class="modal-section">
-                    <h3 data-i18n="modal-technologies">Tecnologías</h3>
-                    <ul id="modal-etiquetas-proyecto" class="etiquetas-tecnologias">
-                    </ul>
-                </div>
-
-                <div class="modal-section">
-                    <h3 data-i18n="modal-links">Enlaces</h3>
-                    <div id="modal-links" class="modal-links">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="game-demo-overlay" class="game-demo-overlay" role="dialog" aria-modal="true">
-        <div class="game-container">
-            <button id="close-game" class="close-game" aria-label="Cerrar demo">
-                <i class="fas fa-times"></i>
+          <nav class="filter-nav">
+            <button
+              class="filter-btn active"
+              data-filter="all"
+              data-i18n="filter-all"
+              aria-pressed="true"
+            >
+              Todos
             </button>
-            <div class="game-frame-container">
-                <iframe id="game-frame" allowfullscreen></iframe>
+            <button
+              class="filter-btn"
+              data-filter="game"
+              data-i18n="filter-games"
+              aria-pressed="false"
+            >
+              Juegos
+            </button>
+            <button
+              class="filter-btn"
+              data-filter="project"
+              data-i18n="filter-projects"
+              aria-pressed="false"
+            >
+              Proyectos
+            </button>
+          </nav>
+
+          <section id="proyectos">
+            <div class="grid-proyectos"></div>
+
+            <div
+              id="no-results"
+              class="no-results-message"
+              style="display: none"
+              data-i18n="no-results"
+            >
+              No se encontraron resultados.
             </div>
+          </section>
+
+          <section id="contacto">
+            <h2 data-i18n="contact-title">Contacto</h2>
+            <form id="contact-form" class="contact-form">
+              <div class="form-group">
+                <label for="from_name" data-i18n="contact-name">Nombre</label>
+                <input type="text" id="from_name" name="from_name" required />
+              </div>
+              <div class="form-group">
+                <label for="email" data-i18n="contact-email">Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div class="form-group">
+                <label for="message" data-i18n="contact-message">Mensaje</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="boton-cv">
+                <i class="fas fa-paper-plane"></i>
+                <span data-i18n="contact-send">Enviar mensaje</span>
+              </button>
+            </form>
+            <div
+              id="form-success"
+              class="form-success"
+              style="display: none"
+              data-i18n="contact-success"
+            >
+              ¡Mensaje enviado correctamente! Te responderé lo antes posible.
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div
+      id="modal-proyecto"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-titulo-proyecto"
+    >
+      <div class="modal-contenido">
+        <span class="close-button" aria-label="Cerrar">&times;</span>
+        <h2 id="modal-titulo-proyecto"></h2>
+
+        <div class="modal-gallery-container">
+          <div class="modal-main-img-container">
+            <img
+              id="modal-img-proyecto"
+              alt="Imagen del proyecto"
+              loading="lazy"
+            />
+          </div>
+          <div id="modal-galeria-proyecto" class="modal-gallery"></div>
         </div>
+
+        <p id="modal-descripcion-proyecto"></p>
+
+        <div class="modal-details">
+          <div class="modal-section">
+            <h3 data-i18n="modal-technologies">Tecnologías</h3>
+            <ul
+              id="modal-etiquetas-proyecto"
+              class="etiquetas-tecnologias"
+            ></ul>
+          </div>
+
+          <div class="modal-section">
+            <h3 data-i18n="modal-links">Enlaces</h3>
+            <div id="modal-links" class="modal-links"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="game-demo-overlay"
+      class="game-demo-overlay"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div class="game-container">
+        <button id="close-game" class="close-game" aria-label="Cerrar demo">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="game-frame-container">
+          <iframe id="game-frame" allowfullscreen></iframe>
+        </div>
+      </div>
     </div>
 
     <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">
-        <i class="fas fa-arrow-up"></i>
+      <i class="fas fa-arrow-up"></i>
     </button>
 
-    <div class="version-display" id="version-display">
-        <span data-i18n="version">Versión</span>: <span id="site-version"></span>
-    </div>
-
-    <script src="translations.js"></script>
+    <script src="portfolioData.js"></script>
+    <script src="svg-icons.js"></script>
     <!-- EmailJS library for contact form functionality -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-        // Initialize EmailJS with your user ID
-        (function() {
-            // You need to replace this with your actual EmailJS user ID/public key from your EmailJS account
-            emailjs.init('nb5Jrn36Claz29WOJ');
-        })();
+      // Initialize EmailJS with your user ID
+      (function () {
+        // You need to replace this with your actual EmailJS user ID/public key from your EmailJS account
+        emailjs.init("nb5Jrn36Claz29WOJ");
+      })();
     </script>
-    <script src="script.js" type="module"></script>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>

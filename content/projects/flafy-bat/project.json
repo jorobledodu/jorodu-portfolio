@@ -1,0 +1,66 @@
+{
+    "id": "flafy-bat",
+    "type": "game",
+    "title": {
+        "es": "Flafy Bat",
+        "en": "Flafy Bat"
+    },
+    "description": {
+        "es": "Proyecto universitario inspirado en Flappy Bird. Tanto el arte como la programacion estan realizados por mi.",
+        "en": "A university project inspired by Flappy Bird. Both the art and the programming were made by me."
+    },
+    "thumbnail": "images/flafy_bat-icon.png",
+    "releaseDate": "2022",
+    "playable": true,
+    "academic": {
+        "institution": "Florida Universitaria",
+        "course": {
+            "es": "Grado en Desarrollo de Videojuegos",
+            "en": "Bachelor's Degree in Game Development"
+        },
+        "year": "2022"
+    },
+    "tags": [
+        {
+            "name": "Unity",
+            "iconClass": "fab fa-unity"
+        },
+        {
+            "name": "C#",
+            "iconClass": "fas fa-code"
+        },
+        {
+            "name": "Android",
+            "iconClass": "fas fa-android"
+        },
+        {
+            "name": "2D Art",
+            "iconClass": "fas fa-paint-brush"
+        }
+    ],
+    "links": {
+        "demo": "https://itch.io/embed-upload/5190429?color=444444",
+        "itch": "https://jorodu.itch.io/flafy-bat"
+    },
+    "gallery": [
+        "images/flafy_bat-icon.png",
+        "images/flafy_bat-1.jpg",
+        "videos/flafy_bat.mp4"
+    ],
+    "altThumbnail": {
+        "es": "Icono del juego Flafy Bat.",
+        "en": "Flafy Bat game icon."
+    },
+    "altGallery": {
+        "es": [
+            "Icono del juego Flafy Bat.",
+            "Captura de Flafy Bat.",
+            "Gameplay de Flafy Bat."
+        ],
+        "en": [
+            "Flafy Bat game icon.",
+            "Flafy Bat screenshot.",
+            "Flafy Bat gameplay."
+        ]
+    }
+}

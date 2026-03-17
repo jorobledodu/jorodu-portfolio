@@ -1,13 +1,11 @@
 /**
  * Main script file for the portfolio website.
  * Handles theme switching, translations, project filtering, and UI interactions.
- * @module script
  */
 
-import svgIcons from './svg-icons.js';
-import { SITE_VERSION } from './version.js';
+// Use global variables from loaded scripts (portfolioData.js, svg-icons.js)
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     // DOM element references for better performance and maintainability
     const DOM = {
         themeToggle: document.getElementById('theme-toggle'),
@@ -33,10 +31,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         gameOverlay: document.getElementById('game-demo-overlay'),
         gameFrame: document.getElementById('game-frame'),
         herramientasContainer: document.querySelector('.herramientas .etiquetas-tecnologias'), // Contenedor de herramientas
-        socialIcons: document.querySelectorAll('.svg-icon'), // Iconos de redes sociales
-        profileImgContainer: document.querySelector('.profile-img-container'), // Added profile image container reference
-        versionDisplay: document.getElementById('version-display'),
-        siteVersionElement: document.getElementById('site-version'),
+        socialIcons: document.querySelectorAll('.svg-icon'),
+        profileImgContainer: document.querySelector('.profile-img-container'),
+        cvLink: document.getElementById('cv-link'),
         fullscreenOverlay: null // Se inicializará cuando sea necesario
     };
 
@@ -46,9 +43,55 @@ document.addEventListener('DOMContentLoaded', async () => {
         currentFilter: 'all',
         currentLang: localStorage.getItem('language') || 'es',
         currentTheme: localStorage.getItem('theme') || 'dark',
-        activeProject: null,
-        profileImgFlipped: false // Added state to track if profile image is flipped
+        activeProjectId: null,
+        profileImgFlipped: false
     };
+
+    const uiText = portfolioData.ui;
+
+    function t(key) {
+        return uiText[state.currentLang]?.[key] || uiText.es?.[key] || key;
+    }
+
+    function localize(value) {
+        if (value == null) return '';
+        if (typeof value === 'object' && !Array.isArray(value)) {
+            return value[state.currentLang] || value.es || Object.values(value)[0] || '';
+        }
+        return value;
+    }
+
+    function localizeArray(value) {
+        if (Array.isArray(value)) return value;
+        if (value && typeof value === 'object') {
+            return value[state.currentLang] || value.es || [];
+        }
+        return [];
+    }
+
+    function getPdfLinks(links) {
+        const pdfs = [];
+
+        if (links?.pdf) {
+            pdfs.push({ url: links.pdf, label: null });
+        }
+
+        if (Array.isArray(links?.pdfs)) {
+            links.pdfs.forEach((entry) => {
+                if (typeof entry === 'string') {
+                    pdfs.push({ url: entry, label: null });
+                } else if (entry?.url) {
+                    pdfs.push({ url: entry.url, label: entry.label || null });
+                }
+            });
+        }
+
+        return pdfs;
+    }
+
+    function getProjectById(projectId) {
+        return state.portfolioData.items.find(project => project.id === projectId);
+    }
 
     // Lista de habilidades (fuera de las funciones, para que sea accesible globalmente)
     const allSkills = [
@@ -61,20 +104,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     ];
 
     // Cargar datos del portfolio
-    async function loadPortfolioData() {
-        try {
-            // Add version parameter to prevent caching
-            const response = await fetch(`portfolioData.json?v=${new Date().getTime()}`);
-            const data = await response.json();
-            return data; // Return the data directly to preserve original order
-        } catch (error) {
-            console.error('Error loading portfolio data:', error);
-            // Mostrar mensaje de error al usuario
+    function loadPortfolioData() {
+        if (typeof portfolioData !== 'undefined') {
+            return portfolioData;
+        } else {
+            console.error('Portfolio data not loaded');
             const errorDiv = document.createElement('div');
-            errorDiv.textContent = translations[state.currentLang]["load-error"]; // Usa la traducción
+            errorDiv.textContent = t('load-error');
             errorDiv.style.color = 'red';
             DOM.projectsGrid.parentElement.insertBefore(errorDiv, DOM.projectsGrid);
-            return { items: [] }; // Return empty items array with the same structure
+            return { items: [] };
         }
     }
 
@@ -95,13 +134,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     function applyTranslations(lang) {
         DOM.i18nElements.forEach(element => {
             const key = element.dataset.i18n;
-            element.textContent = translations[lang][key];
+            element.textContent = uiText[lang]?.[key] || uiText.es?.[key] || '';
         });
 
         DOM.i18nPlaceholders.forEach(element => {
             const key = element.dataset.i18nPlaceholder;
-            element.placeholder = translations[lang][key];
+            element.placeholder = uiText[lang]?.[key] || uiText.es?.[key] || '';
         });
+
+        if (DOM.cvLink) {
+            DOM.cvLink.href = uiText[lang]['cv-file'];
+        }
+
+        document.documentElement.lang = lang;
     }
 
     // Function to handle profile image flip for mobile devices
@@ -142,8 +187,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Renderizar proyectos
     function renderProjects(projects) {
         DOM.projectsGrid.innerHTML = projects.map(project => {
-            const isVideoThumbnail = project.thumbnail && project.thumbnail.toLowerCase().endsWith('.mp4');
-            const thumbnailContent = isVideoThumbnail ? 
+            const projectTitle = localize(project.title);
+            const projectDescription = localize(project.description);
+            const projectReleaseDate = localize(project.releaseDate) || t('in-development');
+            const projectAltThumbnail = localize(project.altThumbnail) || projectTitle;
+            const pdfLinks = getPdfLinks(project.links);
+            const hasThumbnail = Boolean(project.thumbnail);
+            const isVideoThumbnail = hasThumbnail && project.thumbnail.toLowerCase().endsWith('.mp4');
+            const thumbnailContent = !hasThumbnail ?
+                `<div class="card-img-container media-placeholder">
+                    <div class="media-placeholder-content">
+                        <i class="fas fa-image"></i>
+                        <span>${t('pending-media')}</span>
+                    </div>
+                </div>` :
+                isVideoThumbnail ? 
                 `<div class="card-img-container video-thumbnail">
                     <video muted loop playsinline class="img-proyecto">
                         <source src="${project.thumbnail}" type="video/mp4">
@@ -151,58 +209,69 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <i class="fas fa-play video-play-icon"></i>
                 </div>` :
                 `<div class="card-img-container">
-                    <img src="${project.thumbnail}" alt="${project.altThumbnail || project.title}" class="img-proyecto" loading="lazy">
+                    <img src="${project.thumbnail}" alt="${projectAltThumbnail}" class="img-proyecto" loading="lazy">
                 </div>`;
 
             return `
-            <div class="tarjeta-proyecto" data-type="${project.type}" data-project="${project.title}">
+            <div class="tarjeta-proyecto" data-type="${project.type}" data-project-id="${project.id}">
                 ${thumbnailContent}
                 <div class="card-content">
-                    <h3>${project.title}</h3>
-                    <p class="project-description">${project.description.substring(0, 100)}${project.description.length > 100 ? '...' : ''}</p>
+                    <h3>${projectTitle}</h3>
+                    <p class="project-description">${projectDescription.substring(0, 100)}${projectDescription.length > 100 ? '...' : ''}</p>
                     
                     <div class="project-meta">
                         <div class="project-release-date">
-                            <i class="fas fa-calendar-alt"></i> ${project.releaseDate || 'En desarrollo'}
+                            <i class="fas fa-calendar-alt"></i> ${projectReleaseDate}
                         </div>
                         ${project.playable !== undefined ? `
                         <div class="project-status ${project.playable ? 'playable' : 'not-playable'}">
                             <i class="fas ${project.playable ? 'fa-gamepad' : 'fa-code'}">
-                            </i> ${project.playable ? translations[state.currentLang]["playable"] : translations[state.currentLang]["not-playable"]}
+                            </i> ${project.playable ? t('playable') : t('not-playable')}
                         </div>` : ''}
                         ${project.academic ? `
-                        <div class="project-academic" title="${project.academic.institution} - ${project.academic.course} (${project.academic.year})">
-                            <i class="fas fa-graduation-cap"></i> Académico
+                        <div class="project-academic" title="${project.academic.institution} - ${localize(project.academic.course)} (${project.academic.year})">
+                            <i class="fas fa-graduation-cap"></i> ${t('academic')}
+                        </div>` : ''}
+                        ${project.pendingMedia ? `
+                        <div class="project-status pending-media">
+                            <i class="fas fa-image"></i> ${t('pending-media')}
                         </div>` : ''}
                     </div>
                     
                     <ul class="etiquetas-tecnologias">
                      ${project.tags.slice(0, 3).map(tag => {
-                        const tagName = tag.name.toLowerCase();
+                        const tagLabel = localize(tag.name);
+                        const tagName = tagLabel.toLowerCase();
                         const tagKey = tagName === 'c#' ? 'csharp' : tagName.replace(/[\s\/]+/g, '');
                         return svgIcons[tagKey] ?
-                            `<li>${svgIcons[tagKey]} ${tag.name}</li>` :
-                            `<li><i class="${tag.iconClass}"></i> ${tag.name}</li>`;
+                            `<li>${svgIcons[tagKey]} ${tagLabel}</li>` :
+                            `<li><i class="${tag.iconClass}"></i> ${tagLabel}</li>`;
                     }).join('')}
                     </ul>
                     
                     <div class="botones-proyecto">
                         ${project.playable && project.links.demo ? `
-                        <button class="play-demo-btn-card" data-demo="${project.links.demo || '#'}" aria-label="Jugar demo de ${project.title}">
+                        <button class="play-demo-btn-card" data-demo="${project.links.demo || '#'}" aria-label="${t('aria-play-demo')} ${projectTitle}">
                             <i class="fas fa-play"></i>
                         </button>` : ''}
                         ${project.links.itch ? `
-                        <a href="${project.links.itch}" target="_blank" class="boton-icono" aria-label="Ir a ${project.title} en Itch.io">
+                        <a href="${project.links.itch}" target="_blank" class="boton-icono" aria-label="${t('aria-open-itch')} ${projectTitle} en Itch.io">
                             <i class="fab fa-itch-io"></i>
                         </a>` : ''}
                         ${project.links.github ? `
-                        <a href="${project.links.github}" target="_blank" class="boton-icono" aria-label="Ir a ${project.title} en GitHub">
+                        <a href="${project.links.github}" target="_blank" class="boton-icono" aria-label="${t('aria-open-github')} ${projectTitle} en GitHub">
                             <i class="fab fa-github"></i>
                         </a>` : ''}
-                        ${project.links.pdf ? `
-                        <a href="${project.links.pdf}" target="_blank" class="boton-icono" aria-label="Ver documento PDF de ${project.title}">
-                            <i class="fas fa-file-pdf"></i>
+                        ${project.links.download ? `
+                        <a href="${project.links.download}" target="_blank" class="boton-icono" aria-label="${t('aria-download-release')} ${projectTitle}">
+                            <i class="fas fa-download"></i>
                         </a>` : ''}
+                        ${pdfLinks.map(pdf => {
+                            const pdfLabel = pdf.label ? localize(pdf.label) : projectTitle;
+                            return `<a href="${pdf.url}" target="_blank" class="boton-icono" aria-label="${t('aria-open-pdf')} ${pdfLabel}" title="${pdfLabel}">
+                            <i class="fas fa-file-pdf"></i>
+                        </a>`;
+                        }).join('')}
                     </div>
                 </div>
           </div>
@@ -210,7 +279,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Añadir event listeners a las tarjetas DESPUÉS de renderizarlas
         document.querySelectorAll('.tarjeta-proyecto').forEach(card => {
-            card.addEventListener('click', () => openProjectModal(card.dataset.project));
+            card.addEventListener('click', () => openProjectModal(card.dataset.projectId));
         });
 
         // Event listeners para los botones de demo (si existen)
@@ -218,6 +287,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             button.addEventListener('click', (event) => {
                 event.stopPropagation(); // Evita que el clic se propague al contenedor de la tarjeta
                 openGameDemo(button.dataset.demo);
+            });
+        });
+
+        document.querySelectorAll('.tarjeta-proyecto .boton-icono').forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.stopPropagation();
             });
         });
 
@@ -270,22 +345,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function openGameDemo(demoUrl) {
         if (!demoUrl || demoUrl === '#') {
-            alert(translations[state.currentLang]["demo-unavailable"]);
+            alert(t('demo-unavailable'));
             return;
         }
         // Establecer la URL del iframe y mostrar el overlay
         DOM.gameFrame.src = demoUrl;
         const gameDemoTitle = document.getElementById('game-demo-title');
-        if (gameDemoTitle && state.activeProject) {
-            gameDemoTitle.textContent = state.activeProject.title;
+        const activeProject = getProjectById(state.activeProjectId);
+        if (gameDemoTitle && activeProject) {
+            gameDemoTitle.textContent = localize(activeProject.title);
             // Apply custom dimensions if available
-            if (state.activeProject.demoSize) {
+            if (activeProject.demoSize) {
                 const container = document.querySelector('.game-frame-container');
                 const frame = DOM.gameFrame;
-                frame.style.width = state.activeProject.demoSize.width + 'px';
-                frame.style.height = state.activeProject.demoSize.height + 'px';
-                container.style.width = state.activeProject.demoSize.width + 'px';
-                container.style.height = state.activeProject.demoSize.height + 'px';
+                frame.style.width = activeProject.demoSize.width + 'px';
+                frame.style.height = activeProject.demoSize.height + 'px';
+                container.style.width = activeProject.demoSize.width + 'px';
+                container.style.height = activeProject.demoSize.height + 'px';
             }
         }
         DOM.gameOverlay.style.display = 'flex';
@@ -369,8 +445,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             return videoContainer;
         } else {
             const imgElement = document.createElement('img');
+            const activeProject = getProjectById(state.activeProjectId);
+            const galleryAlt = localizeArray(activeProject?.altGallery);
             imgElement.src = source;
-            imgElement.alt = state.activeProject.altGallery?.[state.activeProject.gallery.indexOf(source)] || state.activeProject.title;
+            imgElement.alt = galleryAlt[activeProject?.gallery.indexOf(source)] || localize(activeProject?.title);
             imgElement.loading = "lazy";
             imgElement.addEventListener('click', () => {
                 DOM.modalImage.style.display = 'block';
@@ -384,68 +462,82 @@ document.addEventListener('DOMContentLoaded', async () => {
                 DOM.modalImage.alt = imgElement.alt;
                 document.querySelectorAll('#modal-galeria-proyecto img, #modal-galeria-proyecto video').forEach(item => item.classList.remove('active'));
                 imgElement.classList.add('active');
-                
-                // Añadir funcionalidad para ampliar la imagen a pantalla completa
-                DOM.modalImage.addEventListener('click', function() {
+
+                DOM.modalImage.onclick = function() {
                     openFullscreenImage(this.src, this.alt);
-                });
-                
-                // Función para abrir la imagen en pantalla completa
-                function openFullscreenImage(src, alt) {
-                    // Crear overlay para pantalla completa si no existe
-                    if (!DOM.fullscreenOverlay) {
-                        DOM.fullscreenOverlay = document.createElement('div');
-                        DOM.fullscreenOverlay.className = 'fullscreen-overlay';
-                        DOM.fullscreenOverlay.innerHTML = `
-                            <div class="fullscreen-container">
-                                <button class="close-fullscreen" aria-label="Cerrar pantalla completa">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                                <img class="fullscreen-image" alt="Imagen en pantalla completa">
-                            </div>
-                        `;
-                        document.body.appendChild(DOM.fullscreenOverlay);
-                    }
-                    
-                    // Añadir evento para cerrar al hacer clic en el botón o fuera de la imagen
-                    const closeBtn = DOM.fullscreenOverlay.querySelector('.close-fullscreen');
-                    closeBtn.addEventListener('click', closeFullscreenImage);
-                    DOM.fullscreenOverlay.addEventListener('click', (e) => {
-                        if (e.target === DOM.fullscreenOverlay) {
-                            closeFullscreenImage();
-                        }
-                    });
-                    
-                    // Mostrar la imagen en pantalla completa
-                    const fullscreenImage = DOM.fullscreenOverlay.querySelector('.fullscreen-image');
-                    fullscreenImage.src = src;
-                    fullscreenImage.alt = alt;
-                    DOM.fullscreenOverlay.style.display = 'flex';
-                    document.body.style.overflow = 'hidden'; // Evitar scroll
-                }
-                
-                // Función para cerrar la imagen en pantalla completa
-                function closeFullscreenImage() {
-                    if (DOM.fullscreenOverlay) {
-                        DOM.fullscreenOverlay.style.display = 'none';
-                        document.body.style.overflow = 'auto'; // Restaurar scroll
-                    }
-                }
+                };
             });
             return imgElement;
         }
     }
 
+    // Initialize fullscreen overlay once
+    function initFullscreenOverlay() {
+        if (!DOM.fullscreenOverlay) {
+            DOM.fullscreenOverlay = document.createElement('div');
+            DOM.fullscreenOverlay.className = 'fullscreen-overlay';
+            DOM.fullscreenOverlay.innerHTML = `
+                <div class="fullscreen-container">
+                    <button class="close-fullscreen" aria-label="Cerrar pantalla completa">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <img class="fullscreen-image" alt="Imagen en pantalla completa">
+                </div>
+            `;
+            document.body.appendChild(DOM.fullscreenOverlay);
+
+            const closeBtn = DOM.fullscreenOverlay.querySelector('.close-fullscreen');
+            const closeFullscreenImageHandler = () => {
+                DOM.fullscreenOverlay.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            };
+
+            closeBtn.addEventListener('click', closeFullscreenImageHandler);
+            DOM.fullscreenOverlay.addEventListener('click', (e) => {
+                if (e.target === DOM.fullscreenOverlay) {
+                    closeFullscreenImageHandler();
+                }
+            });
+        }
+    }
+
+    function openFullscreenImage(src, alt) {
+        initFullscreenOverlay();
+        const fullscreenImage = DOM.fullscreenOverlay.querySelector('.fullscreen-image');
+        fullscreenImage.src = src;
+        fullscreenImage.alt = alt;
+        DOM.fullscreenOverlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
     // Abrir modal de proyecto
-    function openProjectModal(projectName) {
-        const project = state.portfolioData.items.find(p => p.title === projectName);
+    function openProjectModal(projectId) {
+        const project = getProjectById(projectId);
         if (!project) return;
 
-        state.activeProject = project;
-        DOM.modalTitle.textContent = project.title;
-        DOM.modalImage.src = project.thumbnail;
-        DOM.modalImage.alt = project.altThumbnail || project.title;
-        DOM.modalDescription.textContent = project.description;
+        const projectTitle = localize(project.title);
+        const projectDescription = localize(project.description);
+        const projectReleaseDate = localize(project.releaseDate) || t('in-development');
+        const projectAltThumbnail = localize(project.altThumbnail) || projectTitle;
+        const projectAltGallery = localizeArray(project.altGallery);
+
+        state.activeProjectId = project.id;
+        DOM.modalImage.parentNode.querySelectorAll('video').forEach(video => {
+            video.pause();
+            video.src = '';
+            video.remove();
+        });
+        DOM.modalTitle.textContent = projectTitle;
+        if (project.thumbnail) {
+            DOM.modalImage.style.display = 'block';
+            DOM.modalImage.src = project.thumbnail;
+            DOM.modalImage.alt = projectAltThumbnail;
+        } else {
+            DOM.modalImage.style.display = 'none';
+            DOM.modalImage.removeAttribute('src');
+            DOM.modalImage.alt = projectAltThumbnail;
+        }
+        DOM.modalDescription.textContent = projectDescription;
         
         // Remove any existing modal-meta containers to prevent accumulation
         const existingMetaContainers = document.querySelectorAll('.modal-meta');
@@ -458,23 +550,30 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Añadir etiqueta de fecha de lanzamiento
         const releaseDateTag = document.createElement('div');
         releaseDateTag.className = 'project-release-date';
-        releaseDateTag.innerHTML = `<i class="fas fa-calendar-alt"></i> ${project.releaseDate || 'En desarrollo'}`;
+        releaseDateTag.innerHTML = `<i class="fas fa-calendar-alt"></i> ${projectReleaseDate}`;
         modalMetaContainer.appendChild(releaseDateTag);
         
         // Añadir etiqueta de jugabilidad si está definida
         if (project.playable !== undefined) {
             const playableTag = document.createElement('div');
             playableTag.className = `project-status ${project.playable ? 'playable' : 'not-playable'}`;
-            playableTag.innerHTML = `<i class="fas ${project.playable ? 'fa-gamepad' : 'fa-code'}"></i> ${project.playable ? translations[state.currentLang]["playable"] : translations[state.currentLang]["not-playable"]}`;
+            playableTag.innerHTML = `<i class="fas ${project.playable ? 'fa-gamepad' : 'fa-code'}"></i> ${project.playable ? t('playable') : t('not-playable')}`;
             modalMetaContainer.appendChild(playableTag);
+        }
+
+        if (project.pendingMedia) {
+            const pendingMediaTag = document.createElement('div');
+            pendingMediaTag.className = 'project-status pending-media';
+            pendingMediaTag.innerHTML = `<i class="fas fa-image"></i> ${t('pending-media')}`;
+            modalMetaContainer.appendChild(pendingMediaTag);
         }
         
         // Añadir etiqueta académica si corresponde
         if (project.academic) {
             const academicTag = document.createElement('div');
             academicTag.className = 'project-academic';
-            academicTag.title = `${project.academic.institution} - ${project.academic.course} (${project.academic.year})`;
-            academicTag.innerHTML = `<i class="fas fa-graduation-cap"></i> Académico`;
+            academicTag.title = `${project.academic.institution} - ${localize(project.academic.course)} (${project.academic.year})`;
+            academicTag.innerHTML = `<i class="fas fa-graduation-cap"></i> ${t('academic')}`;
             modalMetaContainer.appendChild(academicTag);
         }
         
@@ -536,23 +635,29 @@ document.addEventListener('DOMContentLoaded', async () => {
                     // Si es una imagen, mostramos la imagen principal
                     DOM.modalImage.style.display = 'block';
                     DOM.modalImage.src = firstSource;
-                    DOM.modalImage.alt = project.altGallery?.[0] || project.title;
+                    DOM.modalImage.alt = projectAltGallery[0] || projectTitle;
                 }
                 
                 DOM.modalGallery.firstChild.classList.add('active');
             }
+        } else if (!project.thumbnail) {
+            const placeholder = document.createElement('div');
+            placeholder.className = 'modal-media-placeholder active';
+            placeholder.innerHTML = `<i class="fas fa-image"></i><span>${t('pending-media')}</span>`;
+            DOM.modalGallery.appendChild(placeholder);
         }
         // Llenar etiquetas (tags)
         project.tags.forEach(tag => {
             const li = document.createElement('li');
-            const tagName = tag.name.toLowerCase();
+            const tagLabel = localize(tag.name);
+            const tagName = tagLabel.toLowerCase();
             // Special handling for C# tag
             const tagKey = tagName === 'c#' ? 'csharp' : tagName.replace(/[\s\/]+/g, '');
 
             if (svgIcons[tagKey]) {
-                li.innerHTML = `${svgIcons[tagKey]} ${tag.name}`;
+                li.innerHTML = `${svgIcons[tagKey]} ${tagLabel}`;
             } else {
-                li.innerHTML = `<i class="${tag.iconClass}"></i> ${tag.name}`;
+                li.innerHTML = `<i class="${tag.iconClass}"></i> ${tagLabel}`;
             }
 
             DOM.modalTags.appendChild(li);
@@ -562,23 +667,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
         // Llenar enlaces con los mismos botones que aparecen en las tarjetas
+        const pdfLinks = getPdfLinks(project.links);
         DOM.modalLinks.innerHTML = `
             ${project.playable && project.links.demo ? `
-            <button class="play-demo-btn-card" data-demo="${project.links.demo || '#'}" aria-label="Jugar demo de ${project.title}">
+            <button class="play-demo-btn-card" data-demo="${project.links.demo || '#'}" aria-label="${t('aria-play-demo')} ${projectTitle}">
                 <i class="fas fa-play"></i>
             </button>` : ''}
             ${project.links.itch ? `
-            <a href="${project.links.itch}" target="_blank" class="boton-icono" aria-label="Ir a ${project.title} en Itch.io">
+            <a href="${project.links.itch}" target="_blank" class="boton-icono" aria-label="${t('aria-open-itch')} ${projectTitle} en Itch.io">
                 <i class="fab fa-itch-io"></i>
             </a>` : ''}
             ${project.links.github ? `
-            <a href="${project.links.github}" target="_blank" class="boton-icono" aria-label="Ir a ${project.title} en GitHub">
+            <a href="${project.links.github}" target="_blank" class="boton-icono" aria-label="${t('aria-open-github')} ${projectTitle} en GitHub">
                 <i class="fab fa-github"></i>
             </a>` : ''}
-            ${project.links.pdf ? `
-            <a href="${project.links.pdf}" target="_blank" class="boton-icono" aria-label="Ver documento PDF de ${project.title}">
-                <i class="fas fa-file-pdf"></i>
+            ${project.links.download ? `
+            <a href="${project.links.download}" target="_blank" class="boton-icono" aria-label="${t('aria-download-release')} ${projectTitle}">
+                <i class="fas fa-download"></i>
             </a>` : ''}
+            ${pdfLinks.map(pdf => {
+                const pdfLabel = pdf.label ? localize(pdf.label) : projectTitle;
+                return `<a href="${pdf.url}" target="_blank" class="boton-icono" aria-label="${t('aria-open-pdf')} ${pdfLabel}" title="${pdfLabel}">
+                <i class="fas fa-file-pdf"></i>
+            </a>`;
+            }).join('')}
         `;
 
         // Añadir event listener al botón de demo en el modal
@@ -648,16 +760,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             btn.addEventListener('click', () => {
                 const newLang = btn.dataset.lang;
                 if (newLang !== state.currentLang) {
-                    applyTranslations(newLang);
                     state.currentLang = newLang;
+                    applyTranslations(newLang);
                     localStorage.setItem('language', newLang);
-                    // Remover la clase 'active' de todos los botones
                     DOM.langButtons.forEach(b => b.classList.remove('active'));
-                    // Añadir la clase 'active' al botón clickeado
                     btn.classList.add('active');
 
-                    // Actualizar otros elementos si es necesario
+                    filterProjects();
                     renderSkills();
+
+                    if (DOM.modal.style.display === 'block' && state.activeProjectId) {
+                        openProjectModal(state.activeProjectId);
+                    }
                 }
             });
         });
@@ -666,10 +780,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             btn.addEventListener('click', () => {
                 state.currentFilter = btn.dataset.filter;
                 filterProjects();
-                // Remover clase 'active'
-                DOM.filterButtons.forEach(b => b.classList.remove('active'));
-                // Añadir clase 'active' al botón clickeado
+                DOM.filterButtons.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
                 btn.classList.add('active');
+                btn.setAttribute('aria-pressed', 'true');
             });
         });
 
@@ -716,21 +832,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Validación básica
             if (!name || !email || !message) {
-                alert(translations[state.currentLang]["alert-complete-fields"]);
+                alert(t('alert-complete-fields'));
                 return;
             }
 
             // Validar formato de email
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                alert(translations[state.currentLang]["alert-valid-email"]);
+                alert(t('alert-valid-email'));
                 return;
             }
 
             // Mostrar indicador de carga
             const submitBtn = DOM.contactForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerHTML;
-            submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${translations[state.currentLang]["contact-send"]}`;
+            submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${t('contact-send')}`;
             submitBtn.disabled = true;
 
             try {
@@ -752,7 +868,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             } catch (error) {
                 console.error('Error al enviar el formulario:', error);
-                alert(translations[state.currentLang]["contact-error"] || 'Error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+                alert(t('contact-error'));
             } finally {
                 // Restaurar el botón
                 submitBtn.innerHTML = originalBtnText;
@@ -788,7 +904,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelector('.twitter-icon').innerHTML = svgIcons.twitter;
     }
     // Inicialización
-    async function init() {
+    function init() {
         // Aplicar tema guardado o por defecto
         applyTheme(state.currentTheme);
 
@@ -799,7 +915,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         // Cargar datos del portfolio
-        state.portfolioData = await loadPortfolioData();
+        state.portfolioData = loadPortfolioData();
 
         // Renderizar proyectos iniciales
         filterProjects();
@@ -815,11 +931,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Setup profile image interaction for mobile devices
         setupProfileImageInteraction();
-        
-        // Mostrar la versión del sitio
-        if (DOM.siteVersionElement) {
-            DOM.siteVersionElement.textContent = SITE_VERSION;
-        }
 
         // Configurar event listeners para botones interactivos
         setupEventListeners();

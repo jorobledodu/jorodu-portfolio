@@ -1,0 +1,56 @@
+{
+    "id": "tfg-fps-mechanics",
+    "type": "project",
+    "title": {
+        "es": "TFG - Diseno y desarrollo de la mecanica principal de un FPS",
+        "en": "Final Degree Project - Design and Development of the Main FPS Mechanic"
+    },
+    "description": {
+        "es": "Este Trabajo de Fin de Grado se centra en el diseno y desarrollo de una mecanica FPS que combina armas tradicionales, habilidades magicas y reacciones dinamicas entre enemigos. El sistema se construyo con una arquitectura modular, desacoplada y escalable en Unity.",
+        "en": "This final degree project focuses on the design and development of an FPS mechanic that combines traditional weapons, magical abilities, and dynamic enemy reactions. The system was built in Unity with a modular, decoupled, and scalable architecture."
+    },
+    "thumbnail": "videos/mecanicas_FPS.mp4",
+    "releaseDate": "2024",
+    "playable": true,
+    "academic": {
+        "institution": "Universidad Europea",
+        "course": {
+            "es": "Master en Diseno y Programacion de Videojuegos",
+            "en": "Master's Degree in Game Design and Programming"
+        },
+        "year": "2024"
+    },
+    "tags": [
+        {
+            "name": "Unity",
+            "iconClass": "fab fa-unity"
+        },
+        {
+            "name": "C#",
+            "iconClass": "fas fa-code"
+        },
+        {
+            "name": "3D",
+            "iconClass": "fas fa-cube"
+        }
+    ],
+    "links": {
+        "itch": "https://robledodu.itch.io/mecanica-fps-tfg-jorge-robledo",
+        "pdf": "pdf/TFG_mecanicas_FPS.pdf"
+    },
+    "gallery": [
+        "videos/mecanicas_FPS.mp4"
+    ],
+    "altThumbnail": {
+        "es": "Video del proyecto de mecanicas FPS.",
+        "en": "Video of the FPS mechanics project."
+    },
+    "altGallery": {
+        "es": [
+            "Video del proyecto de mecanicas FPS."
+        ],
+        "en": [
+            "Video of the FPS mechanics project."
+        ]
+    }
+}

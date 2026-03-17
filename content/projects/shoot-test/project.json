@@ -1,0 +1,68 @@
+{
+    "id": "shoot-test",
+    "type": "game",
+    "title": {
+        "es": "Shoot Test",
+        "en": "Shoot Test"
+    },
+    "description": {
+        "es": "Shoot Test es una experiencia de tiro en VR pensada para llevar los reflejos y la precision al limite mediante seguimiento de movimiento completo e interaccion inmersiva.",
+        "en": "Shoot Test is a VR shooting experience designed to push reflexes and accuracy to the limit through full motion tracking and immersive interaction."
+    },
+    "thumbnail": "videos/shoot_test.mp4",
+    "releaseDate": "2023",
+    "playable": true,
+    "academic": {
+        "institution": "Florida Universitaria",
+        "course": {
+            "es": "Grado en Desarrollo de Videojuegos",
+            "en": "Bachelor's Degree in Game Development"
+        },
+        "year": "2023"
+    },
+    "tags": [
+        {
+            "name": "Unity",
+            "iconClass": "fab fa-unity"
+        },
+        {
+            "name": "C#",
+            "iconClass": "fas fa-code"
+        },
+        {
+            "name": "VR",
+            "iconClass": "fa-solid fa-vr-cardboard"
+        },
+        {
+            "name": "3D",
+            "iconClass": "fas fa-cube"
+        }
+    ],
+    "links": {
+        "itch": "https://robledodu.itch.io/shoot-test"
+    },
+    "gallery": [
+        "videos/shoot_test.mp4",
+        "images/shooting_test-1.png",
+        "images/shooting_test-2.png",
+        "images/shooting_test-3.png"
+    ],
+    "altThumbnail": {
+        "es": "Gameplay de Shoot Test.",
+        "en": "Shoot Test gameplay."
+    },
+    "altGallery": {
+        "es": [
+            "Gameplay de Shoot Test.",
+            "Captura de Shoot Test.",
+            "Captura de Shoot Test.",
+            "Captura de Shoot Test."
+        ],
+        "en": [
+            "Shoot Test gameplay.",
+            "Shoot Test screenshot.",
+            "Shoot Test screenshot.",
+            "Shoot Test screenshot."
+        ]
+    }
+}

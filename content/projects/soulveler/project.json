@@ -1,0 +1,70 @@
+{
+    "id": "soulveler",
+    "type": "game",
+    "title": {
+        "es": "Soulveler",
+        "en": "Soulveler"
+    },
+    "description": {
+        "es": "Adentrate en Soulveler, un roguelike 2.5D ambientado en un carnaval de pesadilla. Enfrentate a enemigos, trampas y jefes en un ciclo de actuaciones sin fin mientras mejoras tus habilidades.",
+        "en": "Step into Soulveler, a 2.5D roguelike set in a nightmare carnival. Fight enemies, traps, and bosses in an endless performance loop while upgrading your abilities."
+    },
+    "thumbnail": "images/soulveler-icon.png",
+    "releaseDate": "2023",
+    "playable": true,
+    "academic": {
+        "institution": "Florida Universitaria",
+        "course": {
+            "es": "Grado en Desarrollo de Videojuegos",
+            "en": "Bachelor's Degree in Game Development"
+        },
+        "year": "2023"
+    },
+    "tags": [
+        {
+            "name": "Unity",
+            "iconClass": "fab fa-unity"
+        },
+        {
+            "name": "C#",
+            "iconClass": "fas fa-code"
+        },
+        {
+            "name": "3D",
+            "iconClass": "fas fa-cube"
+        }
+    ],
+    "links": {
+        "itch": "https://robledodu.itch.io/soulveler"
+    },
+    "gallery": [
+        "images/soulveler-icon.png",
+        "videos/soulveler.mp4",
+        "images/soulveler-1.jpg",
+        "images/soulveler-2.jpg",
+        "images/soulveler-3.jpg",
+        "images/soulveler-4.jpg"
+    ],
+    "altThumbnail": {
+        "es": "Icono del juego Soulveler.",
+        "en": "Soulveler game icon."
+    },
+    "altGallery": {
+        "es": [
+            "Icono del juego Soulveler.",
+            "Trailer del juego Soulveler.",
+            "Captura del juego Soulveler.",
+            "Captura del juego Soulveler.",
+            "Captura del juego Soulveler.",
+            "Captura del juego Soulveler."
+        ],
+        "en": [
+            "Soulveler game icon.",
+            "Soulveler trailer.",
+            "Soulveler screenshot.",
+            "Soulveler screenshot.",
+            "Soulveler screenshot.",
+            "Soulveler screenshot."
+        ]
+    }
+}

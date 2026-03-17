@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Proyectos</title>
+    <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+    <main class="editor-shell">
+        <header class="hero">
+            <div>
+                <p class="eyebrow">Herramienta local</p>
+                <h1>Editor de Proyectos</h1>
+                <p class="hero-copy">Editor local para crear proyectos nuevos sin tocar el codigo a mano. Genera un `project.json` compatible con el build del portfolio.</p>
+            </div>
+            <div class="hero-actions">
+                <button id="load-template" type="button" class="secondary-btn">Cargar plantilla</button>
+                <button id="clear-form" type="button" class="ghost-btn">Limpiar</button>
+            </div>
+        </header>
+
+        <section class="notice-grid">
+            <article class="notice-card">
+                <h2>Uso rapido</h2>
+                <ol>
+                    <li>Rellena el formulario.</li>
+                    <li>O carga un proyecto existente desde el selector.</li>
+                    <li>Anade tags, links y media.</li>
+                    <li>Pulsa en `Generar proyecto`.</li>
+                    <li>Guardalo como `content/projects/&lt;id&gt;/project.json`.</li>
+                    <li>Ejecuta `tools/rebuild-portfolio.bat`.</li>
+                </ol>
+            </article>
+            <article class="notice-card">
+                <h2>Notas</h2>
+                <ul>
+                    <li>Este editor es solo local; no forma parte del portfolio publico.</li>
+                    <li>Las rutas de imagen, video, PDF o WebGL deben ser relativas al repo.</li>
+                    <li>Si existe `portfolioData.js`, el editor avisa si el `id` ya esta en uso.</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="layout">
+            <form id="project-form" class="editor-form">
+                <section class="panel">
+                    <div class="panel-header with-action">
+                        <h2>Proyecto existente</h2>
+                    </div>
+                    <div class="field-grid two-col">
+                        <label>
+                            <span>Cargar desde dataset actual</span>
+                            <select id="existing-project-select">
+                                <option value="">Selecciona un proyecto...</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>O importar JSON</span>
+                            <input id="import-project-file" type="file" accept="application/json,.json">
+                        </label>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-header">
+                        <h2>Base</h2>
+                    </div>
+                    <div class="field-grid two-col">
+                        <label>
+                            <span>ID</span>
+                            <input id="project-id" name="projectId" type="text" placeholder="command-console-2" required>
+                            <small id="id-status"></small>
+                        </label>
+                        <label>
+                            <span>Tipo</span>
+                            <select id="project-type" name="projectType">
+                                <option value="project">Proyecto</option>
+                                <option value="game">Juego</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Release ES</span>
+                            <input id="release-es" name="releaseEs" type="text" placeholder="2026 o En desarrollo">
+                        </label>
+                        <label>
+                            <span>Release EN</span>
+                            <input id="release-en" name="releaseEn" type="text" placeholder="2026 or In development">
+                        </label>
+                    </div>
+                    <p class="field-help">Carpeta sugerida: <code id="project-folder-hint">content/projects/nuevo-proyecto/</code></p>
+                    <label class="checkbox-row">
+                        <input id="project-playable" name="playable" type="checkbox" checked>
+                        <span>Marcar como jugable</span>
+                    </label>
+                    <label class="checkbox-row">
+                        <input id="project-pending-media" name="pendingMedia" type="checkbox">
+                        <span>Marcar como pendiente de media para publicarlo aunque aun no tenga imagenes o videos</span>
+                    </label>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-header">
+                        <h2>Textos</h2>
+                    </div>
+                    <div class="field-grid two-col">
+                        <label>
+                            <span>Titulo ES</span>
+                            <input id="title-es" name="titleEs" type="text" required>
+                        </label>
+                        <label>
+                            <span>Titulo EN</span>
+                            <input id="title-en" name="titleEn" type="text" required>
+                        </label>
+                    </div>
+                    <div class="field-grid two-col">
+                        <label>
+                            <span>Descripcion ES</span>
+                            <textarea id="description-es" name="descriptionEs" rows="5" required></textarea>
+                        </label>
+                        <label>
+                            <span>Descripcion EN</span>
+                            <textarea id="description-en" name="descriptionEn" rows="5" required></textarea>
+                        </label>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-header">
+                        <h2>Media principal</h2>
+                    </div>
+                    <div class="field-grid two-col">
+                        <label>
+                            <span>Thumbnail</span>
+                            <input id="thumbnail-path" name="thumbnailPath" type="text" placeholder="Resources/Images/my-project-thumb.jpg">
+                        </label>
+                        <label>
+                            <span>Alt thumbnail ES</span>
+                            <input id="thumbnail-alt-es-2" name="thumbnailAltEs2" type="text" placeholder="Descripcion en espanol">
+                        </label>
+                        <label>
+                            <span>Alt thumbnail EN</span>
+                            <input id="thumbnail-alt-en" name="thumbnailAltEn" type="text" placeholder="Description in English">
+                        </label>
+                    </div>
+                    <p class="field-help">Puedes usar rutas relativas a la carpeta del proyecto, por ejemplo `images/thumbnail.jpg` o `videos/trailer.mp4`. Si el archivo esta dentro de la carpeta del proyecto y el nombre es unico, tambien puedes escribir solo `thumbnail.jpg`. Si marcas el proyecto como pendiente de media, puedes dejar esta parte vacia por ahora.</p>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-header with-action">
+                        <h2>Tags</h2>
+                        <button id="add-tag" type="button" class="secondary-btn small-btn">Anadir tag</button>
+                    </div>
+                    <div id="tags-list" class="dynamic-list"></div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-header with-action">
+                        <h2>Links</h2>
+                    </div>
+                    <div class="field-grid two-col">
+                        <label><span>Demo/embed</span><input id="link-demo" type="text" placeholder="https://itch.io/embed-upload/... o webgl/index.html"></label>
+                        <label><span>Itch</span><input id="link-itch" type="text" placeholder="https://..."></label>
+                        <label><span>GitHub</span><input id="link-github" type="text" placeholder="https://github.com/..." ></label>
+                        <label><span>Descarga latest release</span><input id="link-download" type="text" placeholder="https://github.com/usuario/repo/releases/latest"></label>
+                    </div>
+                    <div class="field-grid two-col">
+                        <label><span>Demo ancho</span><input id="demo-width" type="number" min="0" placeholder="960"></label>
+                        <label><span>Demo alto</span><input id="demo-height" type="number" min="0" placeholder="600"></label>
+                    </div>
+                    <p class="field-help">En rutas locales puedes poner tambien solo el nombre del archivo si es unico dentro de la carpeta del proyecto.</p>
+                    <div class="panel-header with-action subpanel-header">
+                        <h3>PDFs</h3>
+                        <button id="add-pdf-item" type="button" class="secondary-btn small-btn">Anadir PDF</button>
+                    </div>
+                    <div id="pdf-list" class="dynamic-list"></div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-header">
+                        <h2>Academico</h2>
+                    </div>
+                    <label class="checkbox-row">
+                        <input id="academic-enabled" type="checkbox">
+                        <span>Incluir bloque academico</span>
+                    </label>
+                    <div class="field-grid two-col academic-fields">
+                        <label><span>Institucion</span><input id="academic-institution" type="text" placeholder="Universidad Europea"></label>
+                        <label><span>Ano</span><input id="academic-year" type="text" placeholder="2026"></label>
+                        <label>
+                            <span>Curso predefinido</span>
+                            <select id="academic-course-preset">
+                                <option value="">Personalizado</option>
+                            </select>
+                        </label>
+                        <div></div>
+                        <label><span>Curso ES</span><input id="academic-course-es" type="text"></label>
+                        <label><span>Curso EN</span><input id="academic-course-en" type="text"></label>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-header with-action">
+                        <h2>Galeria</h2>
+                        <button id="add-gallery-item" type="button" class="secondary-btn small-btn">Anadir media</button>
+                    </div>
+                    <div id="gallery-list" class="dynamic-list"></div>
+                </section>
+
+            </form>
+
+            <aside class="output-column">
+                <section class="panel sticky-panel">
+                    <div class="panel-header with-action">
+                        <h2>Salida</h2>
+                        <div class="inline-actions">
+                            <button id="copy-output" type="button" class="secondary-btn small-btn">Copiar</button>
+                            <button id="download-output" type="button" class="ghost-btn small-btn">Descargar</button>
+                            <button id="download-to-projects" type="button" class="secondary-btn small-btn">Guardar en el portfolio</button>
+                        </div>
+                    </div>
+                    <textarea id="output-json" class="output-box" spellcheck="false" readonly placeholder="Aqui aparecera el proyecto generado..."></textarea>
+                    <div id="validation-messages" class="validation-box"></div>
+                    <p class="field-help">Al usar "Guardar en el portfolio", selecciona la carpeta `content/projects` de tu repositorio local.</p>
+                    <div class="submit-row output-submit-row">
+                        <button id="generate-project" type="submit" form="project-form" class="primary-btn">Generar proyecto</button>
+                    </div>
+                </section>
+            </aside>
+        </section>
+    </main>
+
+    <script src="../../portfolioData.js"></script>
+    <script src="editor.js"></script>
+</body>
+</html>

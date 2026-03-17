@@ -1,0 +1,66 @@
+{
+    "id": "level-design-blockout",
+    "type": "project",
+    "title": {
+        "es": "Diseno y blockout de un nivel de un videojuego",
+        "en": "Level Design and Blockout for a Video Game Level"
+    },
+    "description": {
+        "es": "Este es el trabajo final de la asignatura de Diseno de Niveles del Master en Diseno y Programacion de Videojuegos de la Universidad Europea.",
+        "en": "This is the final project for the Level Design course in the European University master's degree in Game Design and Programming."
+    },
+    "thumbnail": "images/Nuevo_1.jpg",
+    "releaseDate": "2025",
+    "playable": true,
+    "academic": {
+        "institution": "Universidad Europea",
+        "course": {
+            "es": "Master en Diseno y Programacion de Videojuegos",
+            "en": "Master's Degree in Game Design and Programming"
+        },
+        "year": "2025"
+    },
+    "tags": [
+        {
+            "name": "Unity",
+            "iconClass": "fab fa-unity"
+        },
+        {
+            "name": "C#",
+            "iconClass": "fas fa-code"
+        },
+        {
+            "name": "2D",
+            "iconClass": "fas fa-cube"
+        }
+    ],
+    "links": {
+        "demo": "https://itch.io/embed-upload/13184360?color=333333",
+        "itch": "https://robledodu.itch.io/diseo-y-blockout-de-un-nivel-de-un-videojuego",
+        "pdf": "pdf/Documento_de_diseño_junto_al_diseño_de_juego_final.pdf"
+    },
+    "gallery": [
+        "images/PRIMERA ITERACIÓN CON EL DISEÑO.png",
+        "images/PRIMER BLOCKOUT Y SEGUNDA ITERACIÓN DEL DISEÑO.png",
+        "images/TERCERA INTERACIÓN CON EL DISEÑO Y BLOCKOUT.png",
+        "images/CUARTA Y ÚLTIMA ITERACIÓN.png"
+    ],
+    "altThumbnail": {
+        "es": "Captura de la primera sala.",
+        "en": "Screenshot of the first room."
+    },
+    "altGallery": {
+        "es": [
+            "Diseno original en papel.",
+            "Segunda iteracion del diseno.",
+            "Tercera iteracion del diseno y blockout.",
+            "Cuarta y ultima iteracion del diseno."
+        ],
+        "en": [
+            "Original paper design.",
+            "Second design iteration.",
+            "Third design and blockout iteration.",
+            "Fourth and final design iteration."
+        ]
+    }
+}

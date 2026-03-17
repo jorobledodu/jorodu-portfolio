@@ -1,0 +1,67 @@
+{
+    "id": "command-console",
+    "type": "project",
+    "title": {
+        "es": "Command Console",
+        "en": "Command Console"
+    },
+    "description": {
+        "es": "Esta consola integrada en una escena 2D sencilla permite manipular un valor numerico en tiempo real mediante comandos de texto. Tambien sirve como herramienta de depuracion para ajustar valores y probar funcionalidades de forma rapida.",
+        "en": "This console, integrated into a simple 2D scene, lets you manipulate a numeric value in real time through text commands. It also works as a debugging tool for tweaking values and testing features quickly."
+    },
+    "thumbnail": "images/command_console-icon.png",
+    "releaseDate": {
+        "es": "En desarrollo",
+        "en": "In development"
+    },
+    "playable": true,
+    "tags": [
+        {
+            "name": "Unity",
+            "iconClass": "fab fa-unity"
+        },
+        {
+            "name": "C#",
+            "iconClass": "fas fa-code"
+        },
+        {
+            "name": {
+                "es": "Herramientas",
+                "en": "Tools"
+            },
+            "iconClass": "fas fa-tools"
+        }
+    ],
+    "links": {
+        "demo": "https://itch.io/embed-upload/12228899?color=444444",
+        "itch": "https://robledodu.itch.io/in-game-command-console",
+        "github": "https://github.com/jorobledodu/Test"
+    },
+    "gallery": [
+        "images/command_console-icon.png",
+        "images/command_console-1.png",
+        "images/command_console-2.png",
+        "images/command_console-3.png",
+        "videos/command_console.mp4"
+    ],
+    "altThumbnail": {
+        "es": "Icono del proyecto Command Console.",
+        "en": "Command Console project icon."
+    },
+    "altGallery": {
+        "es": [
+            "Icono del proyecto Command Console.",
+            "Captura del proyecto Command Console.",
+            "Captura del proyecto Command Console.",
+            "Captura del proyecto Command Console.",
+            "Video del proyecto Command Console."
+        ],
+        "en": [
+            "Command Console project icon.",
+            "Command Console project screenshot.",
+            "Command Console project screenshot.",
+            "Command Console project screenshot.",
+            "Command Console project video."
+        ]
+    }
+}
