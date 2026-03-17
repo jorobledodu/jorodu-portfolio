@@ -339,6 +339,29 @@
         const pdfs = collectPdfs();
 
         const galleryData = collectGallery();
+        const galleryEntries = galleryData.gallery.map((src, index) => ({
+            src,
+            altEs: galleryData.altGallery.es[index] || '',
+            altEn: galleryData.altGallery.en[index] || ''
+        }));
+
+        if (thumbnail) {
+            const alreadyIncluded = galleryEntries.some((entry) => entry.src === thumbnail);
+            if (!alreadyIncluded) {
+                galleryEntries.unshift({
+                    src: thumbnail,
+                    altEs: thumbnailAltEs,
+                    altEn: thumbnailAltEn
+                });
+            }
+        }
+
+        const finalGallery = galleryEntries.map((entry) => entry.src);
+        const finalAltGallery = {
+            es: galleryEntries.map((entry) => entry.altEs),
+            en: galleryEntries.map((entry) => entry.altEn)
+        };
+
         if (!pendingMedia && galleryData.gallery.length && (galleryData.altGallery.es.some((value) => !value) || galleryData.altGallery.en.some((value) => !value))) {
             messages.push('Cada elemento de galeria necesita alt ES y EN.');
         }
@@ -366,9 +389,9 @@
             playable,
             tags,
             links: Object.fromEntries(Object.entries(links).filter(([, value]) => value)),
-            gallery: galleryData.gallery,
+            gallery: finalGallery,
             altThumbnail: { es: thumbnailAltEs, en: thumbnailAltEn },
-            altGallery: galleryData.altGallery
+            altGallery: finalAltGallery
         };
 
         if (pendingMedia) {

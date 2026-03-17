@@ -9,7 +9,7 @@
         "es": "Gull’s Carrion es una aventura estratégica de narrativa emergente donde cada travesía se juega sobre una mesa viva. Traza tu ruta a través de un mapa procedural por tramos, desembarca en islas cargadas de peligros y oportunidades, y decide cómo gestionar comida, ron, madera, oro, armas y la moral de la expedición. Cada elección tiene un coste. Cada desvío puede darte una ventaja… o condenarte lentamente.\n\nLejos de separar historia y sistema, Gull’s Carrion convierte ambos en una misma experiencia: los eventos narrativos afectan directamente a tus recursos, las estaciones alteran las condiciones del viaje, y la propia interfaz forma parte del mundo de juego mediante cartas, fichas, paneles y elementos físicos integrados en la mesa. El resultado es una mezcla de tensión estratégica, rejugabilidad y atmósfera piratesca oscura con un tono grotesco y artesanal.\n\n-----------------------------------------------\n\n- Mapa procedural por rutas y tramos, con partidas diferentes en cada intento.\n\n- Eventos narrativos ramificados en islas y durante la travesía.\n\n- Gestión multivariable de recursos: comida, ron, madera, oro, armas y moral.\n\n- Sistema de estaciones que modifica costes, recursos y tono narrativo.\n\n- UI diegética integrada en una mesa de juego física y viva.\n\n- Estética artesanal y piratesca, entre lo siniestro y lo caricaturesco.",
         "en": "Gull’s Carrion is a strategic adventure with an emergent narrative where each voyage unfolds on a living tabletop. Chart your course across a procedurally generated map, landing on islands teeming with dangers and opportunities, and decide how to manage food, rum, wood, gold, weapons, and the expedition's morale. Every choice has a cost. Every detour can grant you an advantage… or slowly condemn you.\n\nFar from separating story and gameplay, Gull’s Carrion merges them into a single experience: narrative events directly impact your resources, seasons alter the conditions of your journey, and the interface itself becomes part of the game world through cards, tokens, panels, and physical elements integrated into the table. The result is a blend of strategic tension, replayability, and a dark, pirate atmosphere with a grotesque, handcrafted feel.\n\n-----------------------------------------------\n\n- Procedurally generated map with routes and segments, offering a different experience with each attempt.\n\n- Branching narrative events on islands and throughout the voyage.\n\n- Multivariable resource management: food, rum, wood, gold, weapons, and morale.\n\n- Seasonal system that modifies costs, resources, and narrative tone.\n\n- Diegetic UI integrated into a physical, living game table.\n\n- Handcrafted, pirate-inspired aesthetic, somewhere between sinister and cartoonish."
     },
-    "thumbnail": "gull-s-carrion_thumb.mp4",
+    "thumbnail": "content/projects/gull-s-carrion/videos/gull-s-carrion_thumb.mp4",
     "releaseDate": "2025",
     "playable": true,
     "tags": [
@@ -26,14 +26,14 @@
         "download": "https://github.com/jorobledodu/Gull-s-Carrion/releases/download/launcher/Gull-s-Carrion.zip",
         "pdfs": [
             {
-                "url": "Memoria_GullsCarrion.pdf",
+                "url": "content/projects/gull-s-carrion/pdf/Memoria_GullsCarrion.pdf",
                 "label": {
                     "es": "Memoria del proyecto",
                     "en": "Project brief"
                 }
             },
             {
-                "url": "Libro de instrucciones",
+                "url": "content/projects/gull-s-carrion/pdf/Libro de instrucciones.pdf",
                 "label": {
                     "es": "Instrucciones",
                     "en": "Instructions"
@@ -42,11 +42,12 @@
         ]
     },
     "gallery": [
-        "gull-s-carrion_1.png",
-        "gull-s-carrion_2.png",
-        "gull-s-carrion_3.png",
-        "gull-s-carrion_4.png",
-        "gull-s-carrion_5.png"
+        "content/projects/gull-s-carrion/videos/gull-s-carrion_thumb.mp4",
+        "content/projects/gull-s-carrion/images/gull-s-carrion_1.png",
+        "content/projects/gull-s-carrion/images/gull-s-carrion_2.png",
+        "content/projects/gull-s-carrion/images/gull-s-carrion_3.png",
+        "content/projects/gull-s-carrion/images/gull-s-carrion_4.png",
+        "content/projects/gull-s-carrion/images/gull-s-carrion_5.png"
     ],
     "altThumbnail": {
         "es": "Video gameplay",
@@ -54,6 +55,7 @@
     },
     "altGallery": {
         "es": [
+            "Video gameplay",
             "Imagen de la ruta",
             "Evento de travesia",
             "Evento de isla",
@@ -61,6 +63,7 @@
             "Interacción en la isla"
         ],
         "en": [
+            "Gameplay video",
             "Route image",
             "Crossing event",
             "Island event",

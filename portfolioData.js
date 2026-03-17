@@ -249,9 +249,26 @@ const portfolioData = {
                 }
             ],
             "links": {
-                "download": "https://github.com/jorobledodu/Gull-s-Carrion/releases/latest/download/Game_win-x64.zip"
+                "download": "https://github.com/jorobledodu/Gull-s-Carrion/releases/download/launcher/Gull-s-Carrion.zip",
+                "pdfs": [
+                    {
+                        "url": "content/projects/gull-s-carrion/pdf/Memoria_GullsCarrion.pdf",
+                        "label": {
+                            "es": "Memoria del proyecto",
+                            "en": "Project brief"
+                        }
+                    },
+                    {
+                        "url": "content/projects/gull-s-carrion/pdf/Libro de instrucciones.pdf",
+                        "label": {
+                            "es": "Instrucciones",
+                            "en": "Instructions"
+                        }
+                    }
+                ]
             },
             "gallery": [
+                "content/projects/gull-s-carrion/videos/gull-s-carrion_thumb.mp4",
                 "content/projects/gull-s-carrion/images/gull-s-carrion_1.png",
                 "content/projects/gull-s-carrion/images/gull-s-carrion_2.png",
                 "content/projects/gull-s-carrion/images/gull-s-carrion_3.png",
@@ -264,6 +281,7 @@ const portfolioData = {
             },
             "altGallery": {
                 "es": [
+                    "Video gameplay",
                     "Imagen de la ruta",
                     "Evento de travesia",
                     "Evento de isla",
@@ -271,6 +289,7 @@ const portfolioData = {
                     "Interacción en la isla"
                 ],
                 "en": [
+                    "Gameplay video",
                     "Route image",
                     "Crossing event",
                     "Island event",
