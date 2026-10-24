@@ -43,7 +43,9 @@ const portfolioData = {
             "aria-open-github": "Ver codigo de",
             "aria-open-pdf": "Ver documento PDF de",
             "aria-download-release": "Descargar ultima release de",
-            "cv-file": "Resources/PDF/joge_robledo-cv_es.pdf"
+            "cv-file": "Resources/PDF/joge_robledo-cv_es.pdf",
+            "profile-specialty": "QA con perfil técnico",
+            "copy-confirmation": "¡Copiado!"
         },
         "en": {
             "location": "Valencia, Spain",
@@ -87,7 +89,9 @@ const portfolioData = {
             "aria-open-github": "View source for",
             "aria-open-pdf": "Open PDF document for",
             "aria-download-release": "Download latest release of",
-            "cv-file": "Resources/PDF/joge_robledo-cv_en.pdf"
+            "cv-file": "Resources/PDF/joge_robledo-cv_en.pdf",
+            "profile-specialty": "QA with a technical focus",
+            "copy-confirmation": "Copied!"
         }
     },
     "items": [

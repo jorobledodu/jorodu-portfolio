@@ -9,13 +9,14 @@
     />
     <title>Jorge Robledo | Portfolio</title>
     <link rel="stylesheet" href="style.css" id="main-stylesheet" />
+    <link rel="stylesheet" href="raw.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Press+Start+2P&family=Rubik+Bubbles&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
     />
     <link
       rel="icon"
@@ -26,6 +27,7 @@
 
   <body>
     <div class="top-navbar">
+      <a class="site-signature" href="#info-personal">jorodu<span aria-hidden="true">.portfolio /</span></a>
       <div class="language-selector">
         <button class="lang-btn active" data-lang="es">ES</button>
         <button class="lang-btn" data-lang="en">EN</button>
@@ -62,6 +64,8 @@
                   />
                 </div>
               </div>
+            </div>
+            <div class="profile-line">
               <div class="stickman-container">
                 <img
                   src="Resources/Images/J.Stickman.png"
@@ -71,10 +75,12 @@
                 />
               </div>
             </div>
-            <div class="profile-line"></div>
             <h1 class="developer-nickname">
               <span id="developer-nickname-text">Jorge Robledo</span>
             </h1>
+            <p class="profile-handle">jorodu</p>
+            <p class="profile-role">Technical Designer</p>
+            <p class="profile-specialty" data-i18n="profile-specialty">QA con perfil técnico</p>
             <p class="ubicacion">
               <i class="fas fa-map-marker-alt"></i>
               <span data-i18n="location">Valencia, España</span>
@@ -116,8 +122,8 @@
                 class="copy-email-btn"
                 aria-label="Copiar email"
               >
-                <i class="fas fa-copy"></i> jorobledodu@gmail.com
-                <span class="tooltip">¡Copiado!</span>
+                <i class="fas fa-copy"></i> <span class="email-address">jorobledodu@gmail.com</span>
+                <span class="tooltip" data-i18n="copy-confirmation" role="status">¡Copiado!</span>
               </button>
             </div>
 

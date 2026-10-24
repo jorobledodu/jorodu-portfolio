@@ -117,6 +117,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Keep the background locked until the last overlay closes, including
+    // demos and fullscreen images opened from a project sheet.
+    let pageScrollSnapshot = null;
+    function updatePageScrollLock() {
+        const hasOpenOverlay = [DOM.modal, DOM.gameOverlay, DOM.fullscreenOverlay]
+            .some(overlay => overlay && ['block', 'flex'].includes(overlay.style.display));
+        if (hasOpenOverlay && !pageScrollSnapshot) {
+            pageScrollSnapshot = {
+                htmlOverflow: document.documentElement.style.overflow,
+                bodyOverflow: DOM.body.style.overflow
+            };
+            document.documentElement.style.overflow = 'hidden';
+            DOM.body.style.overflow = 'hidden';
+        } else if (!hasOpenOverlay && pageScrollSnapshot) {
+            document.documentElement.style.overflow = pageScrollSnapshot.htmlOverflow;
+            DOM.body.style.overflow = pageScrollSnapshot.bodyOverflow;
+            pageScrollSnapshot = null;
+        }
+    }
+
     // Sistema de temas
     function applyTheme(theme) {
         DOM.body.classList.remove('light-theme', 'dark-theme');
@@ -124,10 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', theme);
         state.currentTheme = theme;
 
-        // Actualizar colores específicos (simplificado)
-        const root = document.documentElement;
-        root.style.setProperty('--current-text', theme === 'dark' ? '#F8F9FA' : '#2D3436');
-        root.style.setProperty('--current-bg', theme === 'dark' ? '#1a1a1a' : '#F8F9FA');
+        // Theme colors are defined together in the stylesheet.
+        DOM.themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
     }
 
     // Sistema de traducción
@@ -365,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         DOM.gameOverlay.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+        updatePageScrollLock();
     }
 
     function createGalleryItem(source) {
@@ -489,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const closeBtn = DOM.fullscreenOverlay.querySelector('.close-fullscreen');
             const closeFullscreenImageHandler = () => {
                 DOM.fullscreenOverlay.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                updatePageScrollLock();
             };
 
             closeBtn.addEventListener('click', closeFullscreenImageHandler);
@@ -507,7 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fullscreenImage.src = src;
         fullscreenImage.alt = alt;
         DOM.fullscreenOverlay.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+        updatePageScrollLock();
     }
 
     // Abrir modal de proyecto
@@ -702,6 +720,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         DOM.modal.style.display = 'block';
+        updatePageScrollLock();
     }
 
     function renderSkills() {
@@ -730,9 +749,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const copyEmailBtn = document.getElementById('copy-email');
         if (copyEmailBtn) {
             copyEmailBtn.addEventListener('click', function () {
-                // Extract just the email text, ignoring the icon
-                const emailText = this.textContent.trim();
-                const email = emailText.replace(/^\s*\S+\s+/, ''); // Remove icon and whitespace
+                const email = this.querySelector('.email-address').textContent.trim();
                 
                 navigator.clipboard.writeText(email).then(() => {
                     // Mostrar tooltip
@@ -812,6 +829,7 @@ document.addEventListener('DOMContentLoaded', () => {
         DOM.closeModal.addEventListener('click', () => {
             cleanupModalVideos();
             DOM.modal.style.display = 'none';
+            updatePageScrollLock();
         });
 
         // Cerrar el modal si se hace clic fuera de él
@@ -819,6 +837,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (event.target === DOM.modal) {
                 cleanupModalVideos();
                 DOM.modal.style.display = 'none';
+                updatePageScrollLock();
             }
         });
 
@@ -890,7 +909,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (event.target === DOM.gameOverlay || event.target.closest('#close-game')) {
                 DOM.gameOverlay.style.display = 'none';
                 DOM.gameFrame.src = ''; // Detener la carga del iframe
-                document.body.style.overflow = 'auto'; // Restaurar el scroll
+                updatePageScrollLock();
             }
         });
     }
